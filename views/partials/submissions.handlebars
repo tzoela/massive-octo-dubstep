@@ -1,0 +1,55 @@
+<style>
+.col-centered{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.submission-item {
+    width: 50%;
+    padding:1px;
+}
+</style>
+
+<div class="container">
+    <div >
+        <div class="row">
+            <div class="">
+                <h1>From {{title}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="list-group">
+
+                <div>
+
+                    {{#each submissions}}
+                    <div class="list-group-item">
+                        <div class="text-center">
+                            {{ description }}
+                        </div>
+
+                        {{#each images}}
+                        <img class="col-centered submission-item" src="{{ this }}">
+                        {{/each}}
+
+                        {{#if comments}}
+                            {{#each comments}}
+                            <div class="text-center">
+                                {{this}}
+                            </div>
+                            {{/each}}
+                        {{/if}}
+                    </div>
+
+                    {{/each}}
+
+                    {{^submissions}}
+                    <div> Nothing yet, come back soon :)</div>
+                    {{/submissions}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.container -->

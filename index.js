@@ -1,6 +1,8 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var teamMembers = require('./teamMembers');
+var gifwhes = require('./gifwhes');
+var gishwhes = require('./gishwhes');
 
 var app = express();
 app.use(express.static('public'));
@@ -9,6 +11,21 @@ app.use(express.static('public'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 
 app.set('view engine', 'handlebars');
+
+
+
+app.get('/gifwhes', function(req, res, next) {
+    res.render('partials/submissions', {
+        submissions: gifwhes,
+        title: "GifWhes"
+    });
+});
+app.get('/gishwhes', function(req, res, next) {
+    res.render('partials/submissions', {
+        submissions: gishwhes,
+        title: "GISHWHES"
+    });
+});
 
 app.get('/about', function (req, res, next) {
     res.render('partials/about', {
@@ -19,6 +36,11 @@ app.get('/about', function (req, res, next) {
 app.get('/', function (req, res, next) {
     res.render('partials/index');
 });
+
+
+
+
+
 
 var server = app.listen(8080, function () {
 
