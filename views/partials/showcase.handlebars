@@ -1,0 +1,95 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.0/masonry.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"></script>
+<style>
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+body {
+  font-family: sans-serif;
+}
+
+/* ---- isotope ---- */
+
+.showcase-grid {
+  background: #DDD;
+}
+
+/* clear fix */
+.showcase-grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .grid-item ---- */
+
+.showcase-grid-sizer,
+.showcase-grid-item {
+  width: 33.333%;
+}
+
+.showcase-grid-item {
+  float: left;
+  border: 2px solid #DDD;
+
+}
+
+.showcase-grid-item img {
+  display: block;
+  max-width: 100%;
+}
+
+</style>
+
+<div class="container">
+    <div >
+        <div class="row">
+            <div class="">
+                <h1>Showcase</h1>
+            </div>
+        </div>
+
+            <div class="showcase-grid">
+                <div class="showcase-grid-sizer"></div>
+
+                {{#each images}}
+                <img class="showcase-grid-item submission-item" src="{{ this }}">
+                {{/each}}
+
+                {{^images}}
+                <div> Nothing yet, come back soon :)</div>
+                {{/images}}
+
+            </div>
+
+    </div>
+
+</div><!-- /.container -->
+
+<script type="text/javascript">
+// external js: masonry.pkgd.js, imagesloaded.pkgd.js
+
+docReady( function() {
+  // init Isotope
+  var grid = document.querySelector('.showcase-grid');
+
+  var msnry = new Masonry( grid, {
+    itemSelector: '.showcase-grid-item',
+    columnWidth: '.showcase-grid-sizer',
+    percentPosition: true
+  });
+
+  imagesLoaded( grid, function() {
+    // layout Masonry after each image loads
+    msnry.layout();
+  });
+
+});
+
+</script>
