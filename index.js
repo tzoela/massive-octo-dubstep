@@ -1,8 +1,8 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
-var teamMembers = require('./teamMembers');
-var gifwhes = require('./gifwhes');
-var gishwhes = require('./gishwhes');
+var teamMembers = require('./data/teamMembers');
+var gifwhes = require('./data/gifwhes');
+var gishwhes = require('./data/gishwhes');
 
 var app = express();
 app.use(express.static('public'));
@@ -36,11 +36,6 @@ app.get('/about', function (req, res, next) {
 app.get('/', function (req, res, next) {
     res.render('partials/index');
 });
-
-
-
-
-
 
 var server = app.listen(8080, function () {
 
