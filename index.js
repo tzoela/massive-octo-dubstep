@@ -7,7 +7,6 @@ var tumblrPosts = require('./lib/tumblrPosts');
 var teamMembers = require('./data/teamMembers');
 var gifwhes = require('./data/gifwhes');
 var gishwhes = require('./data/gishwhes');
-var showcase = require('./data/showcase');
 
 var app = express();
 app.use(express.static('public'));
