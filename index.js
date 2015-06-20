@@ -1,7 +1,8 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
-var apicache  = require('apicache');
-var cache = apicache.middleware;
+var cache = require('memory-cache');
+
+var tumblrPosts = require('./lib/tumblrPosts');
 
 var teamMembers = require('./data/teamMembers');
 var gifwhes = require('./data/gifwhes');
@@ -18,39 +19,87 @@ app.set('view engine', 'handlebars');
 
 app.use(function(req, res, next) {
     res.set({
-        'Cache-Control':'maxAge=3600',
-        'X-Gish-Type': 'DinoMite'
+        'Cache-Control':'maxAge=3600 content=public',
+        'X-Gish-Type': 'DinoMite',
+        'Content-type': 'text/html'
     });
     next();
 });
 
-app.get('/showcase', cache('1 hour'), function(req, res, next) {
-    res.render('partials/showcase', {
-        images: showcase
+
+
+function cachedRender(req, res, next, partial, renderData, cacheTimeout, refresh) {
+    cacheTimeout = cacheTimeout || 3600000;
+
+    var cachedPage = cache.get(req.url);
+
+    if(cachedPage) {
+        console.log('use cached', req.url);
+        res.send(cachedPage);
+    } else if (refresh) {
+        console.log('refresh', req.url);
+
+        refresh(cache);
+    } else {
+        console.log('replenish', req.url);
+
+        res.render(partial, renderData, function(err, content) {
+            // Render handler
+            if (err) return req.next(err);
+            cache.put(req.url, content, cacheTimeout);
+            res.send(content);
+        });
+    }
+}
+
+app.get('/showcase', function(req, res, next) {
+    var cacheTimeout = 3600000;
+    var maxNumberOfPosts ;
+
+    cachedRender(req, res, next, 'partials/showcase', {}, cacheTimeout, function(cache) {
+        tumblrPosts().asShowcase(maxNumberOfPosts, function(err, body) {
+            if(err) {
+                res.send('oops');
+            }
+
+            res.render('partials/showcase', {
+                images: body
+            }, function(err, content) {
+                // Render handler
+                if (err) return req.next(err);
+                cache.put(req.url, content, cacheTimeout);
+                res.send(content);
+            });
+        });
     });
+
 });
 
-app.get('/gifwhes', cache('1 hour'), function(req, res, next) {
-    res.render('partials/submissions', {
+app.get('/gifwhes', function(req, res, next) {
+
+    cachedRender(req, res, next, 'partials/submissions', {
         submissions: gifwhes,
-        title: "GifWhes"
+        title: 'GifWhes'
     });
+
 });
-app.get('/gishwhes', cache('1 hour'), function(req, res, next) {
-    res.render('partials/submissions', {
+app.get('/gishwhes', function(req, res, next) {
+
+    cachedRender(req, res, next, 'partials/submissions', {
         submissions: gishwhes,
-        title: "GISHWHES"
+        title: 'GISHWHES'
     });
+
 });
 
-app.get('/about', cache('1 hour'), function (req, res, next) {
+app.get('/about', function (req, res, next) {
     res.render('partials/about', {
         teamMember: teamMembers.members
     });
 });
 
-app.get('/', cache('1 hour'), function (req, res, next) {
-    res.render('partials/index');
+app.get('/', function (req, res, next) {
+    cachedRender(req, res, next, 'partials/index');
 });
 
 var server = app.listen(8080, function () {
