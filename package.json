@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/tzoela/massive-octo-dubstep",
   "dependencies": {
+    "apicache": "0.0.12",
     "express": "^4.12.4",
-    "express-handlebars": "^2.0.1"
+    "express-handlebars": "^2.0.1",
+    "request": "^2.58.0"
   }
 }
