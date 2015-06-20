@@ -3,7 +3,8 @@ module.exports = {
         {
             "name": "Jennifer",
             "website": "http://i-dont-wike-it.tumblr.com/",
-            "image": "https://igcdn-photos-h-a.akamaihd.net/hphotos-ak-xfa1/t51.2885-19/10554148_1425160687779023_46641106_a.jpg"
+            "image": "https://igcdn-photos-h-a.akamaihd.net/hphotos-ak-xfa1/t51.2885-19/10554148_1425160687779023_46641106_a.jpg",
+            "quote": "Am I the only one who's itchy?"
         },
         {
             "name": "Crystal",
