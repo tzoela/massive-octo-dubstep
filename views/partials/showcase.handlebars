@@ -1,50 +1,32 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.0/masonry.pkgd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"></script>
 <style>
-.hidden {
-    display: none;
-}
-
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
-/* force scrollbar */
 html { overflow-y: scroll; }
-
-/* ---- isotope ---- */
 
 .showcase-grid {
     background: #DDD;
 }
-
-/* clear fix */
 .showcase-grid:after {
     content: '';
     display: block;
     clear: both;
 }
 
-/* ---- .grid-item ---- */
-
 .showcase-grid-sizer,
 .showcase-grid-item {
-    width: 33.333%;
+    width: 33.33%;
 }
-
 .showcase-grid-item {
     float: left;
     border: 2px solid #DDD;
-
 }
-
 .showcase-grid-item img {
     display: block;
     max-width: 100%;
 }
-
 </style>
 
 <div class="container">
@@ -59,7 +41,7 @@ html { overflow-y: scroll; }
             <div class="showcase-grid-sizer"></div>
 
             {{#each images}}
-            <img class="showcase-grid-item submission-item hidden" id="{{this}}">
+            <img class="showcase-grid-item submission-item lazy" data-original="{{url}}" height="{{height}}px" width="{{width}}px">
             {{/each}}
 
             {{^images}}
@@ -70,57 +52,27 @@ html { overflow-y: scroll; }
 
     </div>
 
-</div><!-- /.container -->
+</div>
 
 <script type="text/javascript">
-var msnry;
-var images = "{{images}}".split(',');
-
-function setImageSources(id, source, images) {
-    var img = document.getElementById(id);
-    img.src = source;
-    img.onload = function() {
-        imageLoaded(id);
-        if(images.length > 0) {
-            var nextImage = images.pop();
-            setImageSources(nextImage, nextImage, images);
-        }
-    }
-}
-
-function imageLoaded(id) {
-    var img = document.getElementById(id);
-    img.className = img.className.replace(/\hidden\b/,'');
-    setTimeout(function() {
-        msnry.layout();
-    }, 1000);
-}
-
-// external js: masonry.pkgd.js, imagesloaded.pkgd.js
 
 docReady( function() {
-    // init Isotope
     var grid = document.querySelector('.showcase-grid');
-
-    msnry = new Masonry(grid, {
+    var msnry = new Masonry(grid, {
         itemSelector: '.showcase-grid-item',
         columnWidth: '.showcase-grid-sizer',
         percentPosition: true
     });
-
-    var initialImages = images.slice(0,5);
-    images = images.slice(5);
-
-    initialImages.forEach(function(image) {
-        setImageSources(image, image, images);
-
-    });
-
     imagesLoaded(grid, function() {
-        // layout Masonry after each image loads
         msnry.layout();
     });
 
+});
+
+jQuery(document).ready(function ($) {
+    $("img.lazy").lazyload({
+        effect : "fadeIn"
+    });
 });
 
 </script>
