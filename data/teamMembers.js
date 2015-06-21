@@ -79,7 +79,7 @@ module.exports = {
             "website": "https://twitter.com/Subsidel",
             "class": "fui-twitter",
             "image": "https://pbs.twimg.com/profile_images/601058397333618688/ZIL_Te2h.jpg",
-            "quote": "Boy you better put a lid on it"
+            "quote": "Hey, look, I made a thing"
         },
         {
             "name": "Katie",
