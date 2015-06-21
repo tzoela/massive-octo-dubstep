@@ -1,6 +1,7 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var cache = require('memory-cache');
+var subdomain = require('express-subdomain-handler');
 
 var tumblrPosts = require('./lib/tumblrPosts');
 
@@ -10,6 +11,7 @@ var gishwhes = require('./data/gishwhes');
 
 var app = express();
 app.use(express.static('public'));
+app.use(subdomain({ baseUrl: 'teamoxfordsnotbrogues.com', prefix: 'www', logger: true }) );
 
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -25,7 +27,12 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.get('/www/:thesubdomain', function(req, res, next){
 
+  // for the example url this will print 'mysubdomain'
+  res.send(req.params.thesubdomain);
+
+});
 
 function cachedRender(req, res, next, partial, renderData, cacheTimeout, refresh) {
     cacheTimeout = cacheTimeout || 3600000;
