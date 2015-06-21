@@ -19,7 +19,6 @@
   "dependencies": {
     "express": "^4.12.4",
     "express-handlebars": "^2.0.1",
-    "express-subdomain-handler": "^0.1.0",
     "memory-cache": "^0.1.4",
     "request": "^2.58.0"
   }
