@@ -5,43 +5,30 @@
     box-sizing: border-box;
 }
 html { overflow-y: scroll; }
-
-.showcase-grid {
-    background: #DDD;
-}
 .showcase-grid:after {
     content: '';
     display: block;
     clear: both;
 }
-
-.showcase-grid-sizer,
-.showcase-grid-item {
-    width: 33.33%;
-}
 .showcase-grid-item {
     float: left;
-    border: 2px solid #DDD;
-}
-.showcase-grid-item img {
-    display: block;
-    max-width: 100%;
+    padding: 0;
+    border: solid #DDD 1px;
 }
 </style>
 
 <div class="container">
     <div >
-        <div class="row">
+        <div class="container">
             <div class="">
                 <h1>Showcase</h1>
             </div>
         </div>
 
         <div class="showcase-grid">
-            <div class="showcase-grid-sizer"></div>
 
             {{#each images}}
-            <img class="showcase-grid-item submission-item lazy" data-original="{{url}}" height="{{height}}px" width="{{width}}px">
+            <img class="lazy showcase-grid-item col-lg-4 col-md-5 col-sm-6 .col-xs-7" data-original="{{url}}" width="{{width}}px" height="{{height}}px">
             {{/each}}
 
             {{^images}}
@@ -54,25 +41,25 @@ html { overflow-y: scroll; }
 
 </div>
 
+<script src="./js/jquery.lazyload.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/packery/1.4.1/packery.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"></script>
 <script type="text/javascript">
 
 docReady( function() {
-    var grid = document.querySelector('.showcase-grid');
-    var msnry = new Masonry(grid, {
-        itemSelector: '.showcase-grid-item',
-        columnWidth: '.showcase-grid-sizer',
-        percentPosition: true
+    var $container = $('.showcase-grid');
+    // init
+    $container.packery({
+      itemSelector: '.showcase-grid-item',
+      gutter: 0
     });
-    imagesLoaded(grid, function() {
-        msnry.layout();
+
+    $('img.lazy').lazyload({
+        effect : 'fadeIn'
     });
 
 });
 
-jQuery(document).ready(function ($) {
-    $("img.lazy").lazyload({
-        effect : "fadeIn"
-    });
-});
+
 
 </script>
