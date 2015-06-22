@@ -66,7 +66,8 @@ module.exports = {
             "name": "Alex",
             "website": "https://twitter.com/AlexRose312",
             "class": "fui-twitter",
-            "image": "https://pbs.twimg.com/profile_images/608734472285122560/JdscF22z.jpg"
+            "image": "https://pbs.twimg.com/profile_images/608734472285122560/JdscF22z.jpg",
+            "quote": "I just want to hug every cat"
         },
         {
             "name": "Joel",
