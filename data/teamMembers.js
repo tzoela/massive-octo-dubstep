@@ -79,7 +79,7 @@ module.exports = {
             "name": "Katie",
             "website": "https://instagram.com/evermore_studio/",
             "class": "fui-instagram",
-            "image": "https://s3.amazonaws.com/FringeBucket/default-user.png",
+            "image": "https://igcdn-photos-f-a.akamaihd.net/hphotos-ak-xfa1/t51.2885-19/11251220_1436619516645501_21053008_a.jpg",
             "quote": "Why does Joel want onions from me?!"
         },
         {
