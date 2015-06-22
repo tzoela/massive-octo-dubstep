@@ -69,12 +69,6 @@ module.exports = {
             "image": "https://pbs.twimg.com/profile_images/608734472285122560/JdscF22z.jpg"
         },
         {
-            "name": "Leila",
-            "website": "",
-            "class": "fui-cross",
-            "image": "https://s3.amazonaws.com/FringeBucket/default-user.png"
-        },
-        {
             "name": "Joel",
             "website": "https://twitter.com/Subsidel",
             "class": "fui-twitter",
@@ -83,8 +77,8 @@ module.exports = {
         },
         {
             "name": "Katie",
-            "website": "",
-            "class": "fui-cross",
+            "website": "https://instagram.com/evermore_studio/",
+            "class": "fui-instagram",
             "image": "https://s3.amazonaws.com/FringeBucket/default-user.png",
             "quote": "Why does Joel want onions from me?!"
         },
