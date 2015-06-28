@@ -28,9 +28,9 @@ var About = React.createClass({displayName: "About",
             var nameWithQuote = person.name + quote;
 
             return (
-                React.createElement("div", {className: "list-group-item"}, 
-                    React.createElement("a", {className: className, href: person.website}, 
-                        React.createElement("img", {className: "bio-pic", src: person.image, width: "32", height: "32"}), 
+                React.createElement("div", {className: "list-group-item"},
+                    React.createElement("a", {className: className, href: person.website},
+                        React.createElement("img", {className: "bio-pic", src: person.image, width: "32", height: "32"}),
                         React.createElement("div", {className: "name-quote"}, nameWithQuote)
                     )
                 )
@@ -38,20 +38,25 @@ var About = React.createClass({displayName: "About",
         });
 
         return (
-            React.createElement("div", {className: "container"}, 
-                React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col-sm-9"}, 
-                        React.createElement("h1", null, "We are OxfordsNotBrogues"), 
+            React.createElement("div", {className: "container"},
+                React.createElement("div", {className: "row"},
+                    React.createElement("div", {className: "col-sm-9"},
+                        React.createElement("h1", null, "We are OxfordsNotBrogues"),
 
-                        React.createElement("div", {className: "lead"}, "Some stuff about the team"), 
-                        React.createElement("p", null, "This link: ", React.createElement("a", {href: "http://teamoxfordsnotbrogues.tumblr.com/"}, "Team tumblr")), 
+                        React.createElement("div", {className: "lead"}, "Some stuff about the team"),
+                        React.createElement("div", {className: "placeholder-from-jenjen"},
+                            "like established this year, made up of experienced members from teams that previously didn't work out, goals for this year,  etc", React.createElement("br", null),
+                            "named because kingsman is fuckin awesome", React.createElement("br", null),
+                            "idk shit like that -JenJen"
+                        ),
+                        React.createElement("p", null, "This link: ", React.createElement("a", {href: "http://teamoxfordsnotbrogues.tumblr.com/"}, "Team tumblr")),
 
                         React.createElement("h3", null, "Meet the team:")
                     )
-                ), 
-                React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "list-group bs-team"}, 
-                        React.createElement("div", {className: "col-md-6"}, 
+                ),
+                React.createElement("div", {className: "row"},
+                    React.createElement("div", {className: "list-group bs-team"},
+                        React.createElement("div", {className: "col-md-6"},
                             team
                         )
                     )

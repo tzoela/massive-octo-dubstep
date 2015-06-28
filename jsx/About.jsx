@@ -44,6 +44,11 @@ var About = React.createClass({
                         <h1>We are OxfordsNotBrogues</h1>
 
                         <div className="lead">Some stuff about the team</div>
+                        <div className="placeholder-from-jenjen">
+                            like established this year, made up of experienced members from teams that previously didn't work out, goals for this year,  etc<br/>
+                            named because kingsman is fuckin awesome<br/>
+                            idk shit like that  -JenJen
+                        </div>
                         <p>This link: <a href="http://teamoxfordsnotbrogues.tumblr.com/">Team tumblr</a></p>
 
                         <h3>Meet the team:</h3>

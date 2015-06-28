@@ -34,9 +34,9 @@ module.exports = {
         },
         {
             "name": "Rebecca",
-            "website": "",
-            "class": "fui-cross",
-            "image": "https://s3.amazonaws.com/FringeBucket/default-user.png"
+            "website": "https://twitter.com/notsodorky",
+            "class": "fui-twitter",
+            "image": "https://pbs.twimg.com/profile_images/3615004938/0814d0f19b42e399e73aaa724be8b83d.jpeg"
         },
         {
             "name": "Tyler",
