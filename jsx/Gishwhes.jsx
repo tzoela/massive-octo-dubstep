@@ -1,7 +1,7 @@
 var Gishwhes = React.createClass({
     render: function () {
         return (
-            <Submissions title="GISHWES" source="/api/gishwhes"></Submissions>
+            <Submissions title="GISHWHES" source="/api/gishwhes"></Submissions>
         );
     }
 });
