@@ -15,10 +15,9 @@ var ShowcaseItems = React.createClass({displayName: "ShowcaseItems",
                     images: result
                 });
                 var $container = $('.showcase-grid');
-                console.log($container);
                 $container.packery({
-                  itemSelector: '.showcase-grid-item',
-                  gutter: 0
+                    itemSelector: '.showcase-grid-item',
+                    gutter: 0
                 });
 
                 $('img.lazy').lazyload({
@@ -31,8 +30,15 @@ var ShowcaseItems = React.createClass({displayName: "ShowcaseItems",
     render: function() {
         var images = this.state.images.map(function(image) {
 
-            var height = image.height + 'px';
-            var width = image.width + 'px';
+            var height = image.height;// + 'px';
+            var width = image.width;// + 'px';
+
+            var classNames = 'img-rounded lazy showcase-grid-item ';
+
+            var apsRatio = height/width;
+            var givenWidth = 350;
+            var ajustedHeight = apsRatio * givenWidth;
+
 
             if(image.url === '') {
                 return (
@@ -42,12 +48,12 @@ var ShowcaseItems = React.createClass({displayName: "ShowcaseItems",
                 return (
                     React.createElement("img", {
                         key: image.url, 
-                        className: "img-rounded lazy showcase-grid-item col-lg-4 col-md-5 col-sm-6 .col-xs-7", 
+                        className: "img-rounded lazy overflow min-350 showcase-grid-item", 
                         "data-original": image.url, 
-                        width: width, 
-                        height: height}
-                    )
-                    );
+                        width: givenWidth, 
+                        height: ajustedHeight}
+                        )
+                );
 
             }
 
