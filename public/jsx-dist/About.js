@@ -56,7 +56,7 @@ var About = React.createClass({displayName: "About",
                 ), 
                 React.createElement("div", {className: "row"}, 
                     React.createElement("div", {className: "list-group bs-team"}, 
-                        React.createElement("div", {className: "col-md-6"}, 
+                        React.createElement("div", {className: "col-md-9"}, 
                             team
                         )
                     )

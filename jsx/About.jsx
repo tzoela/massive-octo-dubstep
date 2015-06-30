@@ -56,7 +56,7 @@ var About = React.createClass({
                 </div>
                 <div className="row">
                     <div className="list-group bs-team">
-                        <div className="col-md-6">
+                        <div className="col-md-9">
                             {team}
                         </div>
                     </div>

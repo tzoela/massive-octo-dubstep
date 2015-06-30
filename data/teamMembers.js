@@ -92,9 +92,10 @@ module.exports = {
         },
         {
             "name": "Taylor",
-            "website": "",
-            "class": "fui-cross",
-            "image": "https://s3.amazonaws.com/FringeBucket/default-user.png"
+            "website": "http://whoa-destiel.tumblr.com",
+            "class": "fui-tumblr",
+            "image": "https://scontent-lhr3-1.xx.fbcdn.net/hphotos-xpt1/v/t1.0-9/11694786_999511653394294_8606862549796187374_n.jpg?oh=6dbafa77a1367520fc59d9b2c2fd462c&oe=561DB7B5",
+            "quote": "She’s beauty, she’s grace, she’ll punch you in the face"
         }
     ],
     helpers: []
