@@ -89,6 +89,12 @@ module.exports = {
             "class": "fui-twitter",
             "image": "https://scontent-lhr3-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/s720x720/11665526_10205930441436968_3926807533045756883_n.jpg?oh=780e5d9f6205aac5ea6014555cd1f76b&oe=55EC431D",
             "quote": "Everything happens for a reason"
+        },
+        {
+            "name": "Taylor",
+            "website": "",
+            "class": "fui-cross",
+            "image": "https://s3.amazonaws.com/FringeBucket/default-user.png"
         }
     ],
     helpers: []
