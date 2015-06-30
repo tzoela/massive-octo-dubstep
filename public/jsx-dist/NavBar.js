@@ -34,10 +34,10 @@ var NavBar = React.createClass({displayName: "NavBar",
         }.bind(this));
 
         return (
-            React.createElement("nav", {className: "navbar navbar-inverse navbar-fixed-top"}, 
+            React.createElement("nav", {className: "navbar navbar-inverse navbar-fixed-top", role: "navigation"}, 
                 React.createElement("div", {className: "container"}, 
                     React.createElement("div", {className: "navbar-header"}, 
-                        React.createElement("button", {type: "button", className: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#navbar", "aria-expanded": "false", "aria-controls": "navbar"}, 
+                        React.createElement("button", {id: "nav-expand-button", type: "button", className: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#navbar", "aria-expanded": "false", "aria-controls": "navbar"}, 
                             React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
                             React.createElement("span", {className: "icon-bar"}), 
                             React.createElement("span", {className: "icon-bar"}), 

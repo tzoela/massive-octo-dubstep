@@ -1,6 +1,9 @@
 var MenuItem = React.createClass({
   handleClick: function(event) {
     this.props.onSelect(this.props.uid);
+    if(!$('#nav-expand-button').hasClass('collapsed')) {
+        $('#nav-expand-button').trigger('click');
+    }
   },
   render: function() {
     var className = this.props.active ? 'active' : null;
@@ -9,9 +12,7 @@ var MenuItem = React.createClass({
     return (
         <li className={className}>
             <a href={route}
-                onClick={this.handleClick}
-                data-toggle="collapse"
-                data-target=".nav-collapse">
+                onClick={this.handleClick}>
                 {this.props.label}
             </a>
         </li>
