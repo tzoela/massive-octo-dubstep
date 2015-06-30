@@ -25,7 +25,7 @@ var Submissions = React.createClass({displayName: "Submissions",
                     key: submission.imgUrl, 
                     imgUrl: submission.imgUrl, 
                     comments: submission.comments}
-                )
+                    )
             );
         });
 
@@ -46,13 +46,21 @@ var Submissions = React.createClass({displayName: "Submissions",
                         )
                     )
                 )
-
             )
         );
 
         var appol = (
-            React.createElement("div", null, 
-                "None yet, come back soon! :)"
+            React.createElement("div", {className: "container"}, 
+                React.createElement("div", null, 
+                    React.createElement("h1", null, "From ", this.props.title), 
+                    React.createElement("div", {className: "row"}, 
+                        "This page will contain all of our submissions from ", this.props.title
+                    ), 
+                    React.createElement("div", {className: "row"}, 
+                        "It doesn't look like we have any yet (Because it hasn't started yet :P)"
+                    )
+                )
+
             )
         );
 

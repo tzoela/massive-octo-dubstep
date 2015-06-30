@@ -25,7 +25,7 @@ var Submissions = React.createClass({
                     key={submission.imgUrl}
                     imgUrl={submission.imgUrl}
                     comments={submission.comments}
-                />
+                    />
             );
         });
 
@@ -46,13 +46,21 @@ var Submissions = React.createClass({
                         </div>
                     </div>
                 </div>
-
             </div>
         );
 
         var appol = (
-            <div>
-                None yet, come back soon! :)
+            <div className="container">
+                <div>
+                    <h1>From {this.props.title}</h1>
+                    <div className="row">
+                        This page will contain all of our submissions from {this.props.title}
+                    </div>
+                    <div className="row">
+                        It doesn't look like we have any yet (Because it hasn't started yet :P)
+                    </div>
+                </div>
+
             </div>
         );
 
