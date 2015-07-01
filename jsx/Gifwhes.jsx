@@ -1,4 +1,4 @@
-var Sumissions = require('./Submissions.jsx');
+var Submissions = require('./Submissions.jsx');
 var GifWhes = React.createClass({
     render: function () {
         return (

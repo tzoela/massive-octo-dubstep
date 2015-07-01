@@ -72,7 +72,7 @@ var About = React.createClass({displayName: "About",
 module.exports = About;
 
 },{}],2:[function(require,module,exports){
-var Sumissions = require('./Submissions.jsx');
+var Submissions = require('./Submissions.jsx');
 var GifWhes = React.createClass({displayName: "GifWhes",
     render: function () {
         return (
