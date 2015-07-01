@@ -1,3 +1,5 @@
+var React = require('react');
+
 var Submissions = require('./Submissions.jsx');
 var Gishwhes = React.createClass({
     render: function () {

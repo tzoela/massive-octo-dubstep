@@ -1,3 +1,5 @@
+var React = require('react');
+
 var ShowcaseItems = require('./ShowcaseItems.jsx');
 
 var Showcase = React.createClass({

@@ -1,3 +1,5 @@
+var React = require('react');
+
 var Pugsy = require('./Pugsy.jsx');
 var GifWhes = require('./GifWhes.jsx');
 var Gishwhes = require('./Gishwhes.jsx');

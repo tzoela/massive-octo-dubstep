@@ -1,3 +1,5 @@
+var React = require('react');
+
 var SubmissionImage = require('./SubmissionImage.jsx');
 
 var Submissions = React.createClass({
@@ -27,17 +29,26 @@ var Submissions = React.createClass({
                     key={submission.imgUrl}
                     imgUrl={submission.imgUrl}
                     comments={submission.comments}
+                    itemNumber={submission.itemNumber}
+                    award={submission.award}
                     />
             );
         });
 
         var hasSubmissions = submissionImages.length > 0;
+        var header = (
+            <div>
+                <h1>{this.props.title}</h1>
+                <h4>{this.props.subtitle}</h4>
+            </div>
+        );
+
         var submissionView = (
             <div className="container">
                 <div >
                     <div className="row">
                         <div>
-                            <h1>From {this.props.title}</h1>
+                            {header}
                         </div>
                     </div>
                     <div className="row">
@@ -54,13 +65,17 @@ var Submissions = React.createClass({
         var appol = (
             <div className="container">
                 <div>
-                    <h1>From {this.props.title}</h1>
                     <div className="row">
-                        This page will contain all of our submissions from {this.props.title}
+                        <div>
+                            {header}
+                        </div>
                     </div>
-                    <div className="row">
-                        It doesn't look like we have any yet (Because it hasn't started yet :P)
-                    </div>
+                </div>
+                <div className="row">
+                    This page will contain all of our submissions from {this.props.title}
+                </div>
+                <div className="row">
+                    It doesn't look like we have any yet (Because it hasn't started yet :P)
                 </div>
 
             </div>

@@ -1,3 +1,5 @@
+var React = require('react');
+
 var ShowcaseItems = React.createClass({
     getInitialState: function() {
         return {

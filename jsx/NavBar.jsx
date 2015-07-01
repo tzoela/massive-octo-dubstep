@@ -1,3 +1,8 @@
+var React = require('react');
+
+var Navbar = require('react-bootstrap').Navbar;
+var Nav = require('react-bootstrap').Nav;
+
 var MenuItem = require('./MenuItem.jsx');
 
 var NavBar = React.createClass({
@@ -36,24 +41,11 @@ var NavBar = React.createClass({
         }.bind(this));
 
         return (
-            <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div className="container">
-                    <div className="navbar-header">
-                        <button id="nav-expand-button" type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                        </button>
-                        <a className="navbar-brand" href="/">OxfordsNotBrogues</a>
-                    </div>
-                    <div id="navbar" className="collapse nav-collapse navbar-collapse">
-                        <ul className='nav navbar-nav'>
-                            {menuItems}
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <Navbar brand='OxfordsNotBrogues' fixedTop inverse toggleNavKey={0}>
+                <Nav left eventKey={0} id='navigation-bar'>
+                    {menuItems}
+                </Nav>
+            </Navbar>
         );
     }
 });

@@ -1,3 +1,5 @@
+var React = require('react');
+
 var Pugsy = React.createClass({
     render: function () {
         return (
