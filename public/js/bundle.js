@@ -28,9 +28,10 @@ var About = React.createClass({displayName: "About",
             var className ='team-member ' + person.class;
             var quote = person.quote ?  " - '" + person.quote + "'" : '';
             var nameWithQuote = person.name + quote;
+            var title = person.website || '';
 
             return (
-                React.createElement("div", {className: "list-group-item"}, 
+                React.createElement("div", {className: "list-group-item", title: title}, 
                     React.createElement("a", {className: className, href: person.website}, 
                         React.createElement("img", {className: "bio-pic", src: person.image, width: "32", height: "32"}), 
                         React.createElement("div", {className: "name-quote"}, nameWithQuote)

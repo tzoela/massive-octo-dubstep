@@ -27,9 +27,10 @@ var About = React.createClass({
             var className ='team-member ' + person.class;
             var quote = person.quote ?  " - '" + person.quote + "'" : '';
             var nameWithQuote = person.name + quote;
+            var title = person.website || '';
 
             return (
-                <div className="list-group-item">
+                <div className="list-group-item" title={title}>
                     <a className={className} href={person.website}>
                         <img className="bio-pic" src={person.image} width="32" height="32"/>
                         <div className="name-quote">{nameWithQuote}</div>
