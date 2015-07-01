@@ -20,3 +20,5 @@ var SubmissionImage = React.createClass({
         );
     }
 });
+
+module.exports = SubmissionImage;

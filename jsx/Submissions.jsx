@@ -1,3 +1,5 @@
+var SubmissionImage = require('./SubmissionImage.jsx');
+
 var Submissions = React.createClass({
     getInitialState: function() {
         return {
@@ -69,3 +71,4 @@ var Submissions = React.createClass({
         );
     }
 });
+module.exports = Submissions;

@@ -1,3 +1,11 @@
+var Pugsy = require('./Pugsy.jsx');
+var GifWhes = require('./GifWhes.jsx');
+var Gishwhes = require('./Gishwhes.jsx');
+var Showcase = require('./Showcase.jsx');
+var About = require('./About.jsx');
+var NavBar = require('./NavBar.jsx');
+
+
 var App = React.createClass({
   render: function () {
     var Child;

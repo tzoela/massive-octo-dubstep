@@ -66,3 +66,4 @@ var ShowcaseItems = React.createClass({
         );
     }
 });
+module.exports = ShowcaseItems;

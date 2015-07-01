@@ -1,3 +1,4 @@
+var Sumissions = require('./Submissions.jsx');
 var GifWhes = React.createClass({
     render: function () {
         return (
@@ -5,3 +6,4 @@ var GifWhes = React.createClass({
         );
     }
 });
+module.exports = GifWhes;

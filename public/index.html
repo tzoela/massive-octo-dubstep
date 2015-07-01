@@ -70,54 +70,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"></script>
 
 <script src="https://fb.me/react-0.13.3.js"></script>
-<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
-<script src="jsx-dist/MenuItem.js"></script>
-<script src="jsx-dist/NavBar.js"></script>
-<script src="jsx-dist/SubmissionImage.js"></script>
-<script src="jsx-dist/Submissions.js"></script>
-<script src="jsx-dist/ShowcaseItems.js"></script>
-
-<script src="jsx-dist/Pugsy.js"></script>
-<script src="jsx-dist/Gifwhes.js"></script>
-<script src="jsx-dist/Gishwhes.js"></script>
-<script src="jsx-dist/Showcase.js"></script>
-<script src="jsx-dist/About.js"></script>
-
-<script>
-
-var App = React.createClass({displayName: "App",
-  render: function () {
-    var Child;
-    switch (this.props.route) {
-      case 'home': Child = Pugsy; break;
-      case 'gifwhes': Child = GifWhes; break;
-      case 'gishwhes': Child = Gishwhes; break;
-      case 'showcase': Child = Showcase; break;
-      case 'about': Child = About; break;
-      default: Child = Pugsy;
-    }
-
-    return (
-        React.createElement(Child, null)
-    )
-  }
-});
-
-function render () {
-  var route = window.location.hash.substr(1) || 'home';
-  React.render(
-      React.createElement("div", null,
-        React.createElement(NavBar, {active: route}),
-        React.createElement(App, {route: route})
-      )
-      , document.body);
-}
-window.onhashchange = render;
-render(); // render initially
-
-</script>
-
-
+<script src="js/bundle.min.js"></script>
 
 </body>
 </html>

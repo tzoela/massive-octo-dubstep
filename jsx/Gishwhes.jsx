@@ -1,3 +1,4 @@
+var Submissions = require('./Submissions.jsx');
 var Gishwhes = React.createClass({
     render: function () {
         return (
@@ -5,3 +6,6 @@ var Gishwhes = React.createClass({
         );
     }
 });
+
+
+module.exports = Gishwhes;

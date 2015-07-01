@@ -7,3 +7,5 @@ var Pugsy = React.createClass({
         );
     }
 });
+
+module.exports = Pugsy;

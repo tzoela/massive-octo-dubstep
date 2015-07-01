@@ -1,3 +1,5 @@
+var ShowcaseItems = require('./ShowcaseItems.jsx');
+
 var Showcase = React.createClass({
     render: function() {
         return (
@@ -17,3 +19,5 @@ var Showcase = React.createClass({
         );
     }
 });
+
+module.exports = Showcase;

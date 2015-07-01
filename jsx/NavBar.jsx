@@ -1,3 +1,5 @@
+var MenuItem = require('./MenuItem.jsx');
+
 var NavBar = React.createClass({
     getDefaultProps: function() {
         return {
@@ -52,6 +54,8 @@ var NavBar = React.createClass({
                     </div>
                 </div>
             </nav>
-            );
-        }
-    });
+        );
+    }
+});
+
+module.exports = NavBar;
