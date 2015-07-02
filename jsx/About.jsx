@@ -25,19 +25,20 @@ var About = React.createClass({
         var team = this.state.people.map(function(person) {
 
             var className ='team-member ' + person.class;
+            var title = person.website || '';
 
             var quote = '';
 
             if(person.quote) {
                 if(typeof person.quote === 'object') {
                     person.quote = person.quote[Math.floor(Math.random() * person.quote.length)];
+                    title += ' a special little snowflake';
                 }
                 quote = ' - \'' + person.quote + '\'';
 
             }
 
             var nameWithQuote = person.name + quote;
-            var title = person.website || '';
 
             return (
                 <div className="list-group-item" title={title}>
