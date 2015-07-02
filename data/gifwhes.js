@@ -53,7 +53,6 @@ module.exports = [
         "itemNumber": 12,
         "award": "Honorable Microgreen"
     },
-
     {
         "description":"How many chucks could a woodchucker chuck if a woodchuck could chuck wood? I don’t know. But I do know that woodchuck makes for excelent sculpting material. Build a woodchuck Impala, woodchuck bust of Queen Elizabeth, or a woodchuck Chuck E. Cheese.",
         "comments": [
@@ -72,7 +71,7 @@ module.exports = [
     {
         "description": "Paint a happy scene featuring a Supernatural character, a dolphin, and a slice of pizza. But don’t use your hands!",
         "comments": [
-            "Not My Arms’ Makeup Challenge”? More like “’Not My Masterpiece Arms Challenge”! Or wait, that’s not right. It’s the “’My Not Challenge Masterpiece Arms”!! Wait…"
+            "“Not My Arms’ Makeup Challenge”? More like “Not My Masterpiece Arms Challenge”! Or wait, that’s not right. It’s the “My Not Challenge Masterpiece Arms”!! Wait…"
         ],
         "imgUrl": "http://41.media.tumblr.com/d805bfd771c11317c62af738f130ab11/tumblr_nobmft02671r01nnno1_400.png",
         "itemNumber": 9,

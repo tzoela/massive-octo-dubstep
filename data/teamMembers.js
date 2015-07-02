@@ -11,7 +11,9 @@ module.exports = {
             "name": "Crystal",
             "website": "http://thebeatofmyowndrummer.tumblr.com/",
             "class": "fui-tumblr",
-            "image": "http://static.tumblr.com/6bc8321c6d8e8d163f27895e2df54d57/cgcdypu/vMYn5aij1/tumblr_static_9b09ag84wq8sk8owcs08ks88c.jpg"
+            "image": "https://scontent-ams3-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/p720x720/11009910_10203464615695310_7406928882844075398_n.jpg?oh=baa1ecd81d7a707031d47103490352cd&oe=5610A4E7",
+            "quote": ["I won't censor myself to comfort your ignorance",
+             "it's a bulldog innit?"]
         },
         {
             "name": "Tori",
@@ -36,7 +38,8 @@ module.exports = {
             "name": "Rebecca",
             "website": "https://twitter.com/notsodorky",
             "class": "fui-twitter",
-            "image": "https://pbs.twimg.com/profile_images/3615004938/0814d0f19b42e399e73aaa724be8b83d.jpeg"
+            "image": "https://pbs.twimg.com/profile_images/3615004938/0814d0f19b42e399e73aaa724be8b83d.jpeg",
+            "quote": "Can't I just steal dftba?"
         },
         {
             "name": "Tyler",
