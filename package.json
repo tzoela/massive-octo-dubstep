@@ -19,7 +19,8 @@
   "dependencies": {
     "apicache": "0.0.12",
     "express": "^4.12.4",
-    "request": "^2.58.0"
+    "q": "^1.4.1",
+    "request-promise": "^0.4.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

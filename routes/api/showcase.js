@@ -5,10 +5,16 @@ module.exports = function(app) {
 'use strict';
     app.get('/api/showcase', apicache('1 hour'),function(req, res) {
 
-        tumblrPosts().asShowcase(undefined, function(error, body) {
-            if(error) {console.log(error);}
-            res.json(body);
-        });
+        function onSuccess(posts) {
+            res.json(posts);
+        }
+        function onError(error) {
+            console.log(error);
+            res.json({errorMessage: error});
+        }
+
+        tumblrPosts().promised.asShowcase()
+        .then(onSuccess, onError);
 
     });
 };
