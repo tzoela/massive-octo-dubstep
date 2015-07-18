@@ -1,5 +1,6 @@
 var expressServer = require('./lib/expressServer');
-var router = require('./lib/router');
+var apiRouter = require('./lib/apiRouter');
+var appRouter = require('./lib/appRouter');
 
-expressServer.use([router]);
+expressServer.use([apiRouter, appRouter]);
 expressServer.listen();

@@ -13,6 +13,7 @@ var MenuItem = React.createClass({
         var className = this.props.active ? 'active' : null;
 
         var route = '#' + this.props.uid;
+
         return (
             <NavItem
                 onClick={this.handleClick}
@@ -21,6 +22,7 @@ var MenuItem = React.createClass({
                 key={this.props.uid}
                 href={route}>
                 {this.props.label}
+                {this.props.children}
             </NavItem>
 
         );

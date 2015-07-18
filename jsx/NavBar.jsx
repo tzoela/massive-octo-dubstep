@@ -2,36 +2,43 @@ var React = require('react');
 
 var Navbar = require('react-bootstrap').Navbar;
 var Nav = require('react-bootstrap').Nav;
+var Login = require('./Login.jsx');
 
 var MenuItem = require('./MenuItem.jsx');
 
 var NavBar = React.createClass({
-    getDefaultProps: function() {
-        return {
-            menuItems: [
-            {uid: 'home', label: 'Home'},
-            {uid: 'gifwhes', label: 'GifWhes'},
-            {uid: 'gishwhes', label: 'GISHWHES'},
-            {uid: 'showcase', label: 'Showcase'},
-            {uid: 'about', label: 'About'}
-            ]
-        };
-    },
 
     getInitialState: function() {
         return {
-            activeMenuItemUid: this.props.active
+            activeMenuItemUid: this.props.active,
+            navigation: {menuItems: []}
         };
     },
 
-    setActiveMenuItem: function(uid) {
-        this.setState({activeMenuItemUid: uid});
+    componentDidMount: function () {
+      $.get('/navigation', function(result) {
+          if (this.isMounted()) {
+              var newState = this.state;
+              newState.navigation = result;
+              this.setState(newState);
+          }
+      }.bind(this));
     },
 
+    setActiveMenuItem: function(uid) {
+        var newState = this.state;
+        newState.activeMenuItemUid = uid;
+        this.setState(newState);
+    },
+    
     render: function() {
-        var menuItems = this.props.menuItems.map(function(menuItem) {
+        var menuItems = this.state.navigation.menuItems.map(function(menuItem) {
+
+          var NavTagType = menuItem.type === 'Login'? Login :  MenuItem;
+
+
             return (
-                <MenuItem active={this.state.activeMenuItemUid === menuItem.uid}
+                <NavTagType active={this.state.activeMenuItemUid === menuItem.uid}
                     key={menuItem.uid}
                     onSelect={this.setActiveMenuItem}
                     uid={menuItem.uid}

@@ -6,6 +6,7 @@ var Gishwhes = require('./Gishwhes.jsx');
 var Showcase = require('./Showcase.jsx');
 var About = require('./About.jsx');
 var NavBar = require('./NavBar.jsx');
+var Profile = require('./Profile.jsx');
 
 
 var App = React.createClass({
@@ -17,6 +18,7 @@ var App = React.createClass({
       case 'gishwhes': Child = Gishwhes; break;
       case 'showcase': Child = Showcase; break;
       case 'about': Child = About; break;
+      case 'profile': Child = Profile; break;
       default: Child = Pugsy;
     }
 
