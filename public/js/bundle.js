@@ -116,8 +116,8 @@ module.exports = Gishwhes;
 
 },{"./Submissions.jsx":12,"react":249}],4:[function(require,module,exports){
 var React = require('react');
-var MenuItem = require('./MenuItem.jsx');
 var BootStrap = require('react-bootstrap');
+var NavItem = BootStrap.NavItem;
 var Alert = BootStrap.Alert;
 var Modal = BootStrap.Modal;
 var Button = BootStrap.Button;
@@ -133,6 +133,7 @@ var Login = React.createClass({displayName: "Login",
   },
 
   open: function() {
+    console.log('open');
     this.setState({ show: true });
   },
 
@@ -144,13 +145,15 @@ var Login = React.createClass({displayName: "Login",
       );
     }
 
+    var href = '#' + window.location.hash.substr(1);
     return (
-        React.createElement(MenuItem, {
-          bsStyle: "primary", 
+        React.createElement(NavItem, {
+          bsStyle: "info", 
           bsSize: "large", 
-          onSelect: this.open, 
-          label: this.props.label, 
-          uid: this.props.uid}, 
+          onClick: this.open, 
+          href: href}, 
+
+          this.props.label, 
 
           React.createElement(Modal, {
             show: this.state.show, 
@@ -185,7 +188,7 @@ var Login = React.createClass({displayName: "Login",
 
     module.exports = Login;
 
-},{"./MenuItem.jsx":5,"react":249,"react-bootstrap":80}],5:[function(require,module,exports){
+},{"react":249,"react-bootstrap":80}],5:[function(require,module,exports){
 var React = require('react');
 var NavItem = require('react-bootstrap').NavItem;
 
@@ -252,17 +255,17 @@ var NavBar = React.createClass({displayName: "NavBar",
         newState.activeMenuItemUid = uid;
         this.setState(newState);
     },
-    
+
     render: function() {
         var menuItems = this.state.navigation.menuItems.map(function(menuItem) {
 
           var NavTagType = menuItem.type === 'Login'? Login :  MenuItem;
-
+          var onselect = menuItem.type === 'Login'? function() {console.log('login')} : this.setActiveMenuItem
 
             return (
                 React.createElement(NavTagType, {active: this.state.activeMenuItemUid === menuItem.uid, 
                     key: menuItem.uid, 
-                    onSelect: this.setActiveMenuItem, 
+                    onSelect: onselect, 
                     uid: menuItem.uid, 
                     label: menuItem.label}
                     )

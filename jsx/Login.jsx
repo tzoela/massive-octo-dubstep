@@ -1,6 +1,6 @@
 var React = require('react');
-var MenuItem = require('./MenuItem.jsx');
 var BootStrap = require('react-bootstrap');
+var NavItem = BootStrap.NavItem;
 var Alert = BootStrap.Alert;
 var Modal = BootStrap.Modal;
 var Button = BootStrap.Button;
@@ -16,6 +16,7 @@ var Login = React.createClass({
   },
 
   open: function() {
+    console.log('open');
     this.setState({ show: true });
   },
 
@@ -27,13 +28,15 @@ var Login = React.createClass({
       );
     }
 
+    var href = '#' + window.location.hash.substr(1);
     return (
-        <MenuItem
-          bsStyle='primary'
+        <NavItem
+          bsStyle='info'
           bsSize='large'
-          onSelect={this.open}
-          label={this.props.label}
-          uid={this.props.uid}>
+          onClick={this.open}
+          href={href}>
+
+          {this.props.label}
 
           <Modal
             show={this.state.show}
@@ -61,7 +64,7 @@ var Login = React.createClass({
                 <Button onClick={this.close}>Close</Button>
               </Modal.Footer>
             </Modal>
-        </MenuItem>
+        </NavItem>
         );
       }
     });

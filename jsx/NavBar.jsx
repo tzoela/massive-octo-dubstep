@@ -30,17 +30,17 @@ var NavBar = React.createClass({
         newState.activeMenuItemUid = uid;
         this.setState(newState);
     },
-    
+
     render: function() {
         var menuItems = this.state.navigation.menuItems.map(function(menuItem) {
 
           var NavTagType = menuItem.type === 'Login'? Login :  MenuItem;
-
+          var onselect = menuItem.type === 'Login'? function() {console.log('login')} : this.setActiveMenuItem
 
             return (
                 <NavTagType active={this.state.activeMenuItemUid === menuItem.uid}
                     key={menuItem.uid}
-                    onSelect={this.setActiveMenuItem}
+                    onSelect={onselect}
                     uid={menuItem.uid}
                     label={menuItem.label}
                     />
