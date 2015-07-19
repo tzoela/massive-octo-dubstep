@@ -43,7 +43,7 @@ var About = React.createClass({
             return (
                 <div className="list-group-item" title={title}>
                     <a className={className} href={person.website}>
-                        <img className="bio-pic" src={person.image} width="32" height="32"/>
+                        <img className="bio-pic" alt={person.name + '_image'} src={person.image} width="32" height="32"/>
                         <div className="name-quote">{nameWithQuote}</div>
                     </a>
                 </div>

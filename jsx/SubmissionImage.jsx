@@ -45,7 +45,7 @@ var EnbigenedImageModel = React.createClass({
                             <Modal.Title>{this.props.description}</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <img className="img-rounded col-centered submission-item" src={this.props.img} />
+                            <img alt="submission-Image" className="img-rounded col-centered submission-item" src={this.props.img} />
                             {this.props.comments}
                         </Modal.Body>
                         <Modal.Footer>

@@ -44,7 +44,7 @@ var About = React.createClass({displayName: "About",
             return (
                 React.createElement("div", {className: "list-group-item", title: title}, 
                     React.createElement("a", {className: className, href: person.website}, 
-                        React.createElement("img", {className: "bio-pic", src: person.image, width: "32", height: "32"}), 
+                        React.createElement("img", {className: "bio-pic", alt: person.name + '_image', src: person.image, width: "32", height: "32"}), 
                         React.createElement("div", {className: "name-quote"}, nameWithQuote)
                     )
                 )
@@ -498,7 +498,7 @@ var EnbigenedImageModel = React.createClass({displayName: "EnbigenedImageModel",
                             React.createElement(Modal.Title, null, this.props.description)
                         ), 
                         React.createElement(Modal.Body, null, 
-                            React.createElement("img", {className: "img-rounded col-centered submission-item", src: this.props.img}), 
+                            React.createElement("img", {alt: "submission-Image", className: "img-rounded col-centered submission-item", src: this.props.img}), 
                             this.props.comments
                         ), 
                         React.createElement(Modal.Footer, null, 
