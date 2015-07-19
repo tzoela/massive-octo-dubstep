@@ -39,6 +39,7 @@
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-react": "^0.12.2",
+    "password-generator": "^1.0.0",
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.6"
   }

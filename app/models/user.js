@@ -6,7 +6,11 @@ var userSchema = mongoose.Schema({
   local: {
     username: String,
     password: String,
-    picture: String
+    picture: String,
+    site: String,
+    siteIcon: String,
+    quote: String,
+    notifications: [String]
   }
 
 });
