@@ -2,7 +2,7 @@ var React = require('react');
 
 var Navbar = require('react-bootstrap').Navbar;
 var Nav = require('react-bootstrap').Nav;
-var Login = require('./Login.jsx');
+var LoginModal = require('./login/LoginModal.jsx');
 
 var MenuItem = require('./MenuItem.jsx');
 
@@ -34,7 +34,7 @@ var NavBar = React.createClass({
     render: function() {
         var menuItems = this.state.navigation.menuItems.map(function(menuItem) {
 
-          var NavTagType = menuItem.type === 'Login'? Login :  MenuItem;
+          var NavTagType = menuItem.type === 'Login'? LoginModal :  MenuItem;
           var onselect = menuItem.type === 'Login'? function() {console.log('login')} : this.setActiveMenuItem
 
             return (

@@ -7,7 +7,7 @@ var Showcase = require('./Showcase.jsx');
 var About = require('./About.jsx');
 var NavBar = require('./NavBar.jsx');
 var Profile = require('./Profile.jsx');
-
+var LoginPage = require('./login/LoginPage.jsx');
 
 var App = React.createClass({
   render: function () {
@@ -19,6 +19,7 @@ var App = React.createClass({
       case 'showcase': Child = Showcase; break;
       case 'about': Child = About; break;
       case 'profile': Child = Profile; break;
+      case 'login': Child = LoginPage; break;
       default: Child = Pugsy;
     }
 
