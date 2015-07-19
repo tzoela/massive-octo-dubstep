@@ -1,25 +1,38 @@
 var isLoggedIn = require('../../lib/isLoggedIn');
-var userData = require('../../data/teamMembers');
+var User = require('../../app/models/user');
+var handleErrors = require('../../lib/auth/authError');
 
-var teamMembers = userData.members;
+function selectRelevent(user) {
+  var relevent = {
+    local: {
+      quote: user.local.quote,
+      siteIcon: user.local.siteIcon,
+      site: user.local.site,
+      picture: user.local.picture,
+      username: user.local.username,
+    }
+  };
 
-function addExraInfo(user) {
-  var username = user.local.username;
-  var teamNames = teamMembers.map(function(memberInfo) {
-    return memberInfo.name.toLowerCase();
-  });
+  return relevent;
 
-  console.log(teamNames);
-  var teamIndex = teamNames.indexOf(username.toLowerCase());
-  if(teamIndex != -1) {
-    user.local.picture = teamMembers[teamIndex].image;
-  }
-
-  return user;
 }
 
+function sendResponse(req, res) {
+  return function(user) {
+    console.log(user);
+    res.json(selectRelevent(user));
+  }
+}
 module.exports = function(app) {
   app.get('/profile', isLoggedIn, function(req, res) {
-    res.json(addExraInfo(req.user));
+
+    var username = req.user.local.username;
+
+    User.findOne({
+        'local.username': username
+      })
+      .then(sendResponse(req, res))
+      .then(null, handleErrors(req, res));
+
   });
 }
