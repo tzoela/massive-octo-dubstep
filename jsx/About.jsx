@@ -3,28 +3,31 @@ var About = React.createClass({
     getInitialState: function() {
         return {
             people: [{
-                "name": "Jennifer",
-                "website": "http://i-dont-wike-it.tumblr.com/",
-                "class": "fui-tumblr",
-                "image": "https://igcdn-photos-h-a.akamaihd.net/hphotos-ak-xfa1/t51.2885-19/10554148_1425160687779023_46641106_a.jpg",
-                "quote": "Am I the only one who's itchy?"
+                "name": '',
+                "website": '',
+                "class": '',
+                "image": '',
+                "quote": ''
             }]
         };
     },
+
     componentDidMount: function() {
         $.get('/api/about', function(result) {
             if (this.isMounted()) {
-                this.setState({
-                    people: result.members
-                });
+                var newState = this.state;
+                newState.people = result.members;
+                this.setState(newState);
             }
         }.bind(this));
+
     },
+    
     render: function() {
 
         var team = this.state.people.map(function(person) {
 
-            var className ='team-member ' + person.class;
+            var className ='team-member ' + person.siteIcon;
             var title = person.website || '';
 
             var quote = '';
@@ -42,8 +45,8 @@ var About = React.createClass({
 
             return (
                 <div className="list-group-item" title={title}>
-                    <a className={className} href={person.website}>
-                        <img className="bio-pic" alt={person.name + '_image'} src={person.image} width="32" height="32"/>
+                    <a className={className} href={person.site}>
+                        <img className="bio-pic" alt={person.name + '_image'} src={person.picture} width="32" height="32"/>
                         <div className="name-quote">{nameWithQuote}</div>
                     </a>
                 </div>

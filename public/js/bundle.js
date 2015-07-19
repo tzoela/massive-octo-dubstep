@@ -25,7 +25,7 @@ var About = React.createClass({displayName: "About",
 
         var team = this.state.people.map(function(person) {
 
-            var className ='team-member ' + person.class;
+            var className ='team-member ' + person.siteIcon;
             var title = person.website || '';
 
             var quote = '';
@@ -43,8 +43,8 @@ var About = React.createClass({displayName: "About",
 
             return (
                 React.createElement("div", {className: "list-group-item", title: title}, 
-                    React.createElement("a", {className: className, href: person.website}, 
-                        React.createElement("img", {className: "bio-pic", alt: person.name + '_image', src: person.image, width: "32", height: "32"}), 
+                    React.createElement("a", {className: className, href: person.site}, 
+                        React.createElement("img", {className: "bio-pic", alt: person.name + '_image', src: person.picture, width: "32", height: "32"}), 
                         React.createElement("div", {className: "name-quote"}, nameWithQuote)
                     )
                 )
