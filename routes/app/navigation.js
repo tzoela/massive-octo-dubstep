@@ -21,6 +21,7 @@ function profileMenu(user) {
     menuItems: defaultMenu.menuItems.slice()
   }
   menu.menuItems.push({uid: 'profile', label: user.local.username});
+  menu.menuItems.push({uid: 'list', label: 'List'});
   return menu;
 }
 

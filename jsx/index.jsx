@@ -8,6 +8,7 @@ var About = require('./About.jsx');
 var NavBar = require('./NavBar.jsx');
 var Profile = require('./Profile.jsx');
 var LoginPage = require('./login/LoginPage.jsx');
+var ListDisplay = require('./ListDisplay.jsx');
 
 var App = React.createClass({
   render: function () {
@@ -20,6 +21,7 @@ var App = React.createClass({
       case 'about': Child = About; break;
       case 'profile': Child = Profile; break;
       case 'login': Child = LoginPage; break;
+      case 'list': Child = ListDisplay; break;
       default: Child = Pugsy;
     }
 
