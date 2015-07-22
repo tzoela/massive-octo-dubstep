@@ -1,5 +1,6 @@
 var React = require('react');
 var Style = require('react-style');
+var ListItemStore = require('./stores/ListItemStore');
 
 var Styles = {
   center: {
@@ -22,20 +23,24 @@ var ListDisplay = React.createClass({
 
   getInitialState: function() {
     return {
-      list: [],
-      teamMembers: []
+      list: ListItemStore.getMemberList()
+    };
+  },
+
+  getStateFromStores: function() {
+    return {
+      list: ListItemStore.getItems(),
     };
   },
 
   componentDidMount: function() {
-    $.get('/listitems', function(result) {
-      if (this.isMounted()) {
-        var newState = this.state;
-        newState.list = result;
-        this.setState(newState);
-      }
-    }.bind(this));
+    ListItemStore.addUpdateListener(this._onChange);
+  },
 
+  _onChange: function() {
+    this.setState({
+      list: ListItemStore.getMemberList()
+    });
   },
 
   render: function() {
@@ -58,7 +63,7 @@ var ListDisplay = React.createClass({
 
       var claimer = 'X';
       if (item.claimed) {
-        claimer = item.whoClaimed;
+        claimer = <img alt={item.whoClaimed} src={item.claimerPicture} />
       }
 
       return (

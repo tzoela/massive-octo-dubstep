@@ -36,11 +36,14 @@
     "request-promise": "^0.4.2"
   },
   "devDependencies": {
+    "flux": "^2.0.3",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.8.0",
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-react": "^0.12.2",
+    "keymirror": "^0.1.1",
+    "object-assign": "^3.0.0",
     "password-generator": "^1.0.0",
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.6",
