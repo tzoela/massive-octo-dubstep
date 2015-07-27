@@ -114,6 +114,12 @@ module.exports = Gishwhes;
 var React = require('react');
 var Style = require('react-style');
 var ListItemStore = require('./stores/ListItemStore');
+var BootStrap = require('react-bootstrap');
+var Col = BootStrap.Col;
+var Thumbnail = BootStrap.Thumbnail;
+var Button = BootStrap.Button;
+var Input = BootStrap.Input;
+var Modal = BootStrap.Modal;
 
 var Styles = {
   center: {
@@ -131,8 +137,8 @@ var Styles = {
     padding: 5
   },
   claimerPicture: {
-    height:50,
-    width:50
+    height: 50,
+    width: 50
   }
 };
 
@@ -140,13 +146,9 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
 
   getInitialState: function() {
     return {
-      list: ListItemStore.getMemberList()
-    };
-  },
-
-  getStateFromStores: function() {
-    return {
-      list: ListItemStore.getItems(),
+      list: ListItemStore.getMemberList(),
+      submittingItemNumber: -1,
+      showInputLink: false
     };
   },
 
@@ -160,17 +162,14 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
     });
   },
 
-  revokeClaim: function() {},
-
   claim: function(number) {
 
-    return function () {
+    return function() {
       $.ajax({
         method: 'put',
         url: '/claim',
         data: {
-          itemNumber: number,
-          username: 'Joel'
+          itemNumber: number
         }
       }).done(function() {
         alert('claimed');
@@ -179,44 +178,130 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
     };
   },
 
+  goTo: function(link) {
+    return function() {
+      window.location = link;
+    }
+  },
+
+  openLinkSubmit: function(itemNumber) {
+    return function() {
+        var newState = this.state;
+        newState.submittingItemNumber = itemNumber;
+        newState.showInputLink = true;
+        this.setState(newState);
+
+    }.bind(this);
+  },
+
+  closeInputLink: function() {
+    var newState = this.state;
+    newState.submittingItemNumber = -1;
+    newState.showInputLink = false;
+    this.setState(newState);
+  },
+
+  doSubmitItemLink: function() {
+    var linkInput = this.refs.linkInput.getValue();
+    var itemNumber = this.state.submittingItemNumber;
+
+    $.ajax({
+      method: 'put',
+      url: '/submit',
+      data: {
+        itemNumber: itemNumber,
+        link: linkInput
+      }
+    }).done(function() {
+      alert('submitted');
+      window.location.reload();
+    }).error(function() {
+        alert('oop');
+    });
+  },
+
+  doRevokeClaim: function() {
+    var linkInput = this.refs.linkInput.getValue();
+    var itemNumber = this.state.submittingItemNumber;
+
+    $.ajax({
+      method: 'put',
+      url: '/revokeclaim',
+      data: {
+        itemNumber: itemNumber
+      }
+    }).done(function() {
+      alert('revoked');
+      window.location.reload();
+    }).error(function() {
+        alert('oop');
+    });
+  },
+
+  noop: function(){},
+
   render: function() {
 
     var itemTableRows = this.state.list.map(function(item) {
-      var claimedByThisUser = false;//item.claimed && item.whoClaimed === 'Joel';
+      var claimedByThisUser = item.claimed && item.whoClaimed === window.user.username;
 
-      var button1 = claimedByThisUser
-        ? (
-          React.createElement("button", {onClick: this.revokeClaim}, "'claimed'")
-        )
-        : (
-          React.createElement("button", {onClick: this.claim(item.itemNumber)}, "'claim'")
-        );
+      var button1;
+      if(item.claimed) {
+        if(claimedByThisUser) {
+          button1 = React.createElement(Button, {bsStyle: "warning", onClick: this.revokeClaim}, "Revoke claim");
+        } else {
+          button1 = React.createElement(Button, {bsStyle: "danger", onClick: this.claim(item.itemNumber)}, "Steal");
+        }
+      } else {
+        button1 = React.createElement(Button, {bsStyle: "primary", onClick: this.claim(item.itemNumber)}, "Claim");
+      }
 
-      var button2 = item.completed
-        ? (
-          React.createElement("button", null, "'view'")
-        )
-        : (
-          React.createElement("button", null, "'submit'")
-        );
+      var button2;
+
+      if(!item.completed) {
+        if(claimedByThisUser) {
+          button2 = React.createElement(Button, {bsStyle: "primary", onClick: this.openLinkSubmit(item.itemNumber)}, "Submit")
+        } else {
+          button2 = React.createElement(Button, {bsStyle: "primary", disabled: true}, "Submit");
+        }
+      } else {
+        button2 = React.createElement(Button, {bsStyle: "primary", onClick: this.goTo(item.link)}, "View");
+      }
 
       var claimer = 'X';
       if (item.claimed) {
-        claimer = React.createElement("img", {alt: item.whoClaimed, styles: [Styles.claimerPicture], src: item.claimerPicture})
+        claimer = React.createElement("img", {alt: item.whoClaimed, src: item.claimerPicture, styles: [Styles.claimerPicture]})
       }
 
       return (
         React.createElement("tr", {key: item._id}, 
-          React.createElement("td", {styles: [Styles.cell], className: "col-md-1"}, claimer), 
-          React.createElement("td", {styles: [Styles.cell], className: "col-md-5"}, item.itemNumber, ". ", item.description), 
-          React.createElement("td", {styles: [Styles.cell], className: "col-md-1"}, button1), 
-          React.createElement("td", {styles: [Styles.cell], className: "col-md-1"}, button2)
+          React.createElement("td", {className: "col-md-1", styles: [Styles.cell]}, claimer), 
+          React.createElement("td", {className: "col-md-5", styles: [Styles.cell]}, item.itemNumber, ". ", item.description), 
+          React.createElement("td", {className: "col-md-1", styles: [Styles.cell]}, button1), 
+          React.createElement("td", {className: "col-md-1", styles: [Styles.cell]}, button2)
         )
       );
     }.bind(this));
 
+    var submitLinkButton = React.createElement(Button, {bsStyle: "primary", onClick: this.doSubmitItemLink}, "Submit")
+    var inputLink = (
+      React.createElement(Modal, {"aria-labelledby": "contained-modal-title-sm", bsSize: "large", onHide: this.closeInputLink, show: this.state.showInputLink}, 
+        React.createElement(Modal.Header, {closeButton: true}, 
+          React.createElement(Modal.Title, {id: "contained-modal-title-sm"}, "Submit Link")
+        ), 
+        React.createElement(Modal.Body, null, 
+          "Link for item ", this.state.submittingItemNumber, ": ", React.createElement("small", null, "(does not submit to gishwhes.com)"), 
+          React.createElement(Input, {buttonAfter: submitLinkButton, groupClassName: "group-class", labelClassName: "label-class", onChange: this.noop, placeholder: "", ref: "linkInput", type: "text"})
+        ), 
+        React.createElement(Modal.Footer, null, 
+          React.createElement(Button, {onClick: this.closeInputLink}, "Close")
+        )
+      )
+    );
+
     return (
       React.createElement("div", {styles: [Styles.center, Styles.container]}, 
+        inputLink, 
         React.createElement("h1", null, "Items List"), 
         React.createElement("h3", null, "Choose your items:"), 
         React.createElement("table", {styles: [Styles.center, Styles.table]}, 
@@ -239,7 +324,7 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
 
 module.exports = ListDisplay;
 
-},{"./stores/ListItemStore":18,"react":269,"react-style":111}],6:[function(require,module,exports){
+},{"./stores/ListItemStore":18,"react":269,"react-bootstrap":91,"react-style":111}],6:[function(require,module,exports){
 var React = require('react');
 var NavItem = require('react-bootstrap').NavItem;
 
@@ -836,6 +921,29 @@ var LoginPage = require('./login/LoginPage.jsx');
 var ListDisplay = require('./ListDisplay.jsx');
 
 var App = React.createClass({displayName: "App",
+  getInitialState: function() {
+    return {};
+  },
+
+  componentDidMount: function() {
+    this.syncStateFromServer();
+  },
+
+  syncStateFromServer: function() {
+    $.get('/profile', function(result) {
+      if (this.isMounted()) {
+        try {
+          window.user = result.local;
+          var newState = this.state;
+          newState.user = result.local;
+          this.setState(newState);
+        } catch (exception) {
+          window.location = '/';
+        }
+      }
+    }.bind(this));
+  },
+
   render: function () {
     var Child;
     switch (this.props.route) {

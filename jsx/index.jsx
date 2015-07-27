@@ -11,6 +11,29 @@ var LoginPage = require('./login/LoginPage.jsx');
 var ListDisplay = require('./ListDisplay.jsx');
 
 var App = React.createClass({
+  getInitialState: function() {
+    return {};
+  },
+
+  componentDidMount: function() {
+    this.syncStateFromServer();
+  },
+
+  syncStateFromServer: function() {
+    $.get('/profile', function(result) {
+      if (this.isMounted()) {
+        try {
+          window.user = result.local;
+          var newState = this.state;
+          newState.user = result.local;
+          this.setState(newState);
+        } catch (exception) {
+          window.location = '/';
+        }
+      }
+    }.bind(this));
+  },
+
   render: function () {
     var Child;
     switch (this.props.route) {
