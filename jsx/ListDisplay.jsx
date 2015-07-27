@@ -156,6 +156,10 @@ var ListDisplay = React.createClass({
         button2 = <Button bsStyle='primary' onClick={this.openLinkSubmit(item.itemNumber)}>Resubmit</Button>;
       }
 
+
+
+
+
       var claimer = 'X';
       if (item.claimed) {
         claimer = <img alt={item.whoClaimed} title={item.whoClaimed} src={item.claimerPicture} styles={[Styles.claimerPicture]}/>
@@ -167,7 +171,19 @@ var ListDisplay = React.createClass({
           textDecoration: 'line-through'
         }
       }
-      
+
+      if(item.retracted) {
+        var comment = item.comment || '';
+        return (
+          <tr key={item._id}>
+            <td className="col-md-1" styles={[Styles.cell]}></td>
+            <td className="col-md-5" styles={[Styles.cell, descriptionStyle]}>Retracted: {comment} </td>
+            <td className="col-md-1" styles={[Styles.cell]}></td>
+            <td className="col-md-1" styles={[Styles.cell]}></td>
+          </tr>
+        )
+      }
+
       return (
         <tr key={item._id}>
           <td className="col-md-1" styles={[Styles.cell]}>{claimer}</td>

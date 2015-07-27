@@ -269,6 +269,10 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
         button2 = React.createElement(Button, {bsStyle: "primary", onClick: this.openLinkSubmit(item.itemNumber)}, "Resubmit");
       }
 
+
+
+
+
       var claimer = 'X';
       if (item.claimed) {
         claimer = React.createElement("img", {alt: item.whoClaimed, title: item.whoClaimed, src: item.claimerPicture, styles: [Styles.claimerPicture]})
@@ -280,7 +284,19 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
           textDecoration: 'line-through'
         }
       }
-      
+
+      if(item.retracted) {
+        var comment = item.comment || '';
+        return (
+          React.createElement("tr", {key: item._id}, 
+            React.createElement("td", {className: "col-md-1", styles: [Styles.cell]}), 
+            React.createElement("td", {className: "col-md-5", styles: [Styles.cell, descriptionStyle]}, "Retracted: ", comment, " "), 
+            React.createElement("td", {className: "col-md-1", styles: [Styles.cell]}), 
+            React.createElement("td", {className: "col-md-1", styles: [Styles.cell]})
+          )
+        )
+      }
+
       return (
         React.createElement("tr", {key: item._id}, 
           React.createElement("td", {className: "col-md-1", styles: [Styles.cell]}, claimer), 

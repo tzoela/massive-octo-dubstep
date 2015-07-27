@@ -5,7 +5,7 @@ var LineByLineReader = require('line-by-line');
 mongoose.connect(configDB.url);
 
 
-var LIST_NAME = 'list2013.txt'
+var LIST_NAME = 'list2015.txt'
 
 var lr = new LineByLineReader(LIST_NAME);
 var lineCount = 1;
@@ -16,8 +16,8 @@ lr.on('line', function(line) {
 
   listItem.itemNumber = lineCount++;
   listItem.description = line;
-  listItem.claimed = true;
-  listItem.whoClaimed = 'Joel';
+  listItem.claimed = false;
+  listItem.whoClaimed = '';
   listItem.completed = false;
   listItem.link = '';
   listItem.comment = '';

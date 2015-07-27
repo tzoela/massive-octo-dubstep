@@ -8,7 +8,8 @@ var listItemSchema = mongoose.Schema({
   whoClaimed: String,
   completed: Boolean,
   link: String,
-  comment: String
+  comment: String,
+  retracted: Boolean
 });
 
 
