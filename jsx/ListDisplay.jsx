@@ -107,22 +107,22 @@ var ListDisplay = React.createClass({
     });
   },
 
-  doRevokeClaim: function() {
-    var linkInput = this.refs.linkInput.getValue();
-    var itemNumber = this.state.submittingItemNumber;
+  doRevokeClaim: function(itemNumber) {
+    return function() {
+      $.ajax({
+        method: 'put',
+        url: '/revokeclaim',
+        data: {
+          itemNumber: itemNumber
+        }
+      }).done(function() {
+        alert('revoked');
+        window.location.reload();
+      }).error(function() {
+          alert('oop');
+      });
+    }
 
-    $.ajax({
-      method: 'put',
-      url: '/revokeclaim',
-      data: {
-        itemNumber: itemNumber
-      }
-    }).done(function() {
-      alert('revoked');
-      window.location.reload();
-    }).error(function() {
-        alert('oop');
-    });
   },
 
   noop: function(){},
@@ -135,7 +135,7 @@ var ListDisplay = React.createClass({
       var button1;
       if(item.claimed) {
         if(claimedByThisUser) {
-          button1 = <Button bsStyle='warning' onClick={this.revokeClaim}>Revoke claim</Button>;
+          button1 = <Button bsStyle='warning' onClick={this.doRevokeClaim(item.itemNumber)}>Revoke claim</Button>;
         } else {
           button1 = <Button bsStyle='danger' onClick={this.claim(item.itemNumber)}>Steal</Button>;
         }
@@ -152,18 +152,26 @@ var ListDisplay = React.createClass({
           button2 = <Button bsStyle='primary' disabled>Submit</Button>;
         }
       } else {
-        button2 = <Button bsStyle='primary' onClick={this.goTo(item.link)}>View</Button>;
+        button1 = <Button bsStyle='primary' onClick={this.goTo(item.link)}>View</Button>;
+        button2 = <Button bsStyle='primary' onClick={this.openLinkSubmit(item.itemNumber)}>Resubmit</Button>;
       }
 
       var claimer = 'X';
       if (item.claimed) {
-        claimer = <img alt={item.whoClaimed} src={item.claimerPicture} styles={[Styles.claimerPicture]}/>
+        claimer = <img alt={item.whoClaimed} title={item.whoClaimed} src={item.claimerPicture} styles={[Styles.claimerPicture]}/>
       }
 
+      var descriptionStyle;
+      if(item.completed) {
+        descriptionStyle = {
+          textDecoration: 'line-through'
+        }
+      }
+      
       return (
         <tr key={item._id}>
           <td className="col-md-1" styles={[Styles.cell]}>{claimer}</td>
-          <td className="col-md-5" styles={[Styles.cell]}>{item.itemNumber}. {item.description}</td>
+          <td className="col-md-5" styles={[Styles.cell, descriptionStyle]}>{item.itemNumber}. {item.description}</td>
           <td className="col-md-1" styles={[Styles.cell]}>{button1}</td>
           <td className="col-md-1" styles={[Styles.cell]}>{button2}</td>
         </tr>

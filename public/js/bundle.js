@@ -220,22 +220,22 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
     });
   },
 
-  doRevokeClaim: function() {
-    var linkInput = this.refs.linkInput.getValue();
-    var itemNumber = this.state.submittingItemNumber;
+  doRevokeClaim: function(itemNumber) {
+    return function() {
+      $.ajax({
+        method: 'put',
+        url: '/revokeclaim',
+        data: {
+          itemNumber: itemNumber
+        }
+      }).done(function() {
+        alert('revoked');
+        window.location.reload();
+      }).error(function() {
+          alert('oop');
+      });
+    }
 
-    $.ajax({
-      method: 'put',
-      url: '/revokeclaim',
-      data: {
-        itemNumber: itemNumber
-      }
-    }).done(function() {
-      alert('revoked');
-      window.location.reload();
-    }).error(function() {
-        alert('oop');
-    });
   },
 
   noop: function(){},
@@ -248,7 +248,7 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
       var button1;
       if(item.claimed) {
         if(claimedByThisUser) {
-          button1 = React.createElement(Button, {bsStyle: "warning", onClick: this.revokeClaim}, "Revoke claim");
+          button1 = React.createElement(Button, {bsStyle: "warning", onClick: this.doRevokeClaim(item.itemNumber)}, "Revoke claim");
         } else {
           button1 = React.createElement(Button, {bsStyle: "danger", onClick: this.claim(item.itemNumber)}, "Steal");
         }
@@ -265,18 +265,26 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
           button2 = React.createElement(Button, {bsStyle: "primary", disabled: true}, "Submit");
         }
       } else {
-        button2 = React.createElement(Button, {bsStyle: "primary", onClick: this.goTo(item.link)}, "View");
+        button1 = React.createElement(Button, {bsStyle: "primary", onClick: this.goTo(item.link)}, "View");
+        button2 = React.createElement(Button, {bsStyle: "primary", onClick: this.openLinkSubmit(item.itemNumber)}, "Resubmit");
       }
 
       var claimer = 'X';
       if (item.claimed) {
-        claimer = React.createElement("img", {alt: item.whoClaimed, src: item.claimerPicture, styles: [Styles.claimerPicture]})
+        claimer = React.createElement("img", {alt: item.whoClaimed, title: item.whoClaimed, src: item.claimerPicture, styles: [Styles.claimerPicture]})
       }
 
+      var descriptionStyle;
+      if(item.completed) {
+        descriptionStyle = {
+          textDecoration: 'line-through'
+        }
+      }
+      
       return (
         React.createElement("tr", {key: item._id}, 
           React.createElement("td", {className: "col-md-1", styles: [Styles.cell]}, claimer), 
-          React.createElement("td", {className: "col-md-5", styles: [Styles.cell]}, item.itemNumber, ". ", item.description), 
+          React.createElement("td", {className: "col-md-5", styles: [Styles.cell, descriptionStyle]}, item.itemNumber, ". ", item.description), 
           React.createElement("td", {className: "col-md-1", styles: [Styles.cell]}, button1), 
           React.createElement("td", {className: "col-md-1", styles: [Styles.cell]}, button2)
         )
