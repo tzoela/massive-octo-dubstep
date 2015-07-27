@@ -129,6 +129,10 @@ var Styles = {
   cell: {
     border: '2px solid #ccc',
     padding: 5
+  },
+  claimerPicture: {
+    height:50,
+    width:50
   }
 };
 
@@ -156,16 +160,38 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
     });
   },
 
+  revokeClaim: function() {},
+
+  claim: function(number) {
+
+    return function () {
+      $.ajax({
+        method: 'put',
+        url: '/claim',
+        data: {
+          itemNumber: number,
+          username: 'Joel'
+        }
+      }).done(function() {
+        alert('claimed');
+        window.location.reload();
+      });
+    };
+  },
+
   render: function() {
 
     var itemTableRows = this.state.list.map(function(item) {
-      var button1 = item.claimed
+      var claimedByThisUser = false;//item.claimed && item.whoClaimed === 'Joel';
+
+      var button1 = claimedByThisUser
         ? (
-          React.createElement("button", null, "'claimed'")
+          React.createElement("button", {onClick: this.revokeClaim}, "'claimed'")
         )
         : (
-          React.createElement("button", null, "'not claimed'")
+          React.createElement("button", {onClick: this.claim(item.itemNumber)}, "'claim'")
         );
+
       var button2 = item.completed
         ? (
           React.createElement("button", null, "'view'")
@@ -176,7 +202,7 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
 
       var claimer = 'X';
       if (item.claimed) {
-        claimer = React.createElement("img", {alt: item.whoClaimed, src: item.claimerPicture})
+        claimer = React.createElement("img", {alt: item.whoClaimed, styles: [Styles.claimerPicture], src: item.claimerPicture})
       }
 
       return (
@@ -187,7 +213,7 @@ var ListDisplay = React.createClass({displayName: "ListDisplay",
           React.createElement("td", {styles: [Styles.cell], className: "col-md-1"}, button2)
         )
       );
-    });
+    }.bind(this));
 
     return (
       React.createElement("div", {styles: [Styles.center, Styles.container]}, 
@@ -979,27 +1005,34 @@ var ListItemStore = assign({}, EventEmitter.prototype, {
 
   getMemberList: function() {
     if(listStore.length === 0) {
-      TeamMemberStore.addUpdateListener(this.updateListStore);
+      TeamMemberStore.addUpdateListener(this.updateListStore.bind(this));
       this.updateListStore();
     }
     return listStore;
   },
 
+  assignPicturesToList: function() {
+    var copiedListStore = JSON.parse(JSON.stringify(listStore));
+
+    TeamMemberStore.getMembersByKey('name', function(membersByName) {
+
+      copiedListStore.forEach(function(item) {
+        if(item.claimed && membersByName[item.whoClaimed]) {
+          item.claimerPicture = membersByName[item.whoClaimed].picture;
+        }
+      });
+      listStore = copiedListStore;
+      this.emit(LIST_UPDATE);
+    }.bind(this));
+
+  },
+
   updateListStore: function() {
     $.get('/listitems', function(result) {
       listStore = result;
-      this._assignPicturesToList();
+      this.assignPicturesToList();
       this.emit(LIST_UPDATE);
     }.bind(this));
-  },
-
-  _assignPicturesToList: function() {
-    listStore.forEach(function(item) {
-      if(item.claimed) {
-        item.claimerPicture = TeamMemberStore.getMemberByKeyValue('name', item.whoClaimed);
-      }
-    });
-    window.JOEL = listStore;
   }
 });
 
@@ -1032,23 +1065,19 @@ var TeamMemberStore = assign({}, EventEmitter.prototype, {
   },
 
   updateMemberList: function() {
+    console.log('update member');
     $.get('/api/about', function(result) {
       teamMembersStore = result;
       this.emit(MEMBERS_UPDATE);
     }.bind(this));
   },
 
-  getMemberByKeyValue: function(key, value) {
-    var member;
-    console.log(teamMembersStore, key, value);
-
-    teamMembersStore.members.forEach(function(teamMember) {
-      if(teamMember[key] === value) {
-        member = teamMember;
-      }
+  getMembersByKey: function(key, callback) {
+    var membersByKey = {};
+    this.getMemberList().members.forEach(function(teamMember) {
+      membersByKey[teamMember[key]] = teamMember;
     });
-    window.ALEX = member;
-    return member;
+    callback(membersByKey);
   }
 });
 

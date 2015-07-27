@@ -16,6 +16,10 @@ var Styles = {
   cell: {
     border: '2px solid #ccc',
     padding: 5
+  },
+  claimerPicture: {
+    height:50,
+    width:50
   }
 };
 
@@ -43,16 +47,38 @@ var ListDisplay = React.createClass({
     });
   },
 
+  revokeClaim: function() {},
+
+  claim: function(number) {
+
+    return function () {
+      $.ajax({
+        method: 'put',
+        url: '/claim',
+        data: {
+          itemNumber: number,
+          username: 'Joel'
+        }
+      }).done(function() {
+        alert('claimed');
+        window.location.reload();
+      });
+    };
+  },
+
   render: function() {
 
     var itemTableRows = this.state.list.map(function(item) {
-      var button1 = item.claimed
+      var claimedByThisUser = false;//item.claimed && item.whoClaimed === 'Joel';
+
+      var button1 = claimedByThisUser
         ? (
-          <button>'claimed'</button>
+          <button onClick={this.revokeClaim}>'claimed'</button>
         )
         : (
-          <button>'not claimed'</button>
+          <button onClick={this.claim(item.itemNumber)}>'claim'</button>
         );
+
       var button2 = item.completed
         ? (
           <button>'view'</button>
@@ -63,7 +89,7 @@ var ListDisplay = React.createClass({
 
       var claimer = 'X';
       if (item.claimed) {
-        claimer = <img alt={item.whoClaimed} src={item.claimerPicture} />
+        claimer = <img alt={item.whoClaimed} styles={[Styles.claimerPicture]} src={item.claimerPicture} />
       }
 
       return (
@@ -74,7 +100,7 @@ var ListDisplay = React.createClass({
           <td styles={[Styles.cell]} className="col-md-1">{button2}</td>
         </tr>
       );
-    });
+    }.bind(this));
 
     return (
       <div styles={[Styles.center, Styles.container]}>

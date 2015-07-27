@@ -19,27 +19,34 @@ var ListItemStore = assign({}, EventEmitter.prototype, {
 
   getMemberList: function() {
     if(listStore.length === 0) {
-      TeamMemberStore.addUpdateListener(this.updateListStore);
+      TeamMemberStore.addUpdateListener(this.updateListStore.bind(this));
       this.updateListStore();
     }
     return listStore;
   },
 
+  assignPicturesToList: function() {
+    var copiedListStore = JSON.parse(JSON.stringify(listStore));
+
+    TeamMemberStore.getMembersByKey('name', function(membersByName) {
+
+      copiedListStore.forEach(function(item) {
+        if(item.claimed && membersByName[item.whoClaimed]) {
+          item.claimerPicture = membersByName[item.whoClaimed].picture;
+        }
+      });
+      listStore = copiedListStore;
+      this.emit(LIST_UPDATE);
+    }.bind(this));
+
+  },
+
   updateListStore: function() {
     $.get('/listitems', function(result) {
       listStore = result;
-      this._assignPicturesToList();
+      this.assignPicturesToList();
       this.emit(LIST_UPDATE);
     }.bind(this));
-  },
-
-  _assignPicturesToList: function() {
-    listStore.forEach(function(item) {
-      if(item.claimed) {
-        item.claimerPicture = TeamMemberStore.getMemberByKeyValue('name', item.whoClaimed);
-      }
-    });
-    window.JOEL = listStore;
   }
 });
 

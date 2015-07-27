@@ -24,23 +24,19 @@ var TeamMemberStore = assign({}, EventEmitter.prototype, {
   },
 
   updateMemberList: function() {
+    console.log('update member');
     $.get('/api/about', function(result) {
       teamMembersStore = result;
       this.emit(MEMBERS_UPDATE);
     }.bind(this));
   },
 
-  getMemberByKeyValue: function(key, value) {
-    var member;
-    console.log(teamMembersStore, key, value);
-
-    teamMembersStore.members.forEach(function(teamMember) {
-      if(teamMember[key] === value) {
-        member = teamMember;
-      }
+  getMembersByKey: function(key, callback) {
+    var membersByKey = {};
+    this.getMemberList().members.forEach(function(teamMember) {
+      membersByKey[teamMember[key]] = teamMember;
     });
-    window.ALEX = member;
-    return member;
+    callback(membersByKey);
   }
 });
 
