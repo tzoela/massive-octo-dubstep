@@ -10,8 +10,7 @@ function doSteal(req, res, item) {
     .then(function(user) {
       var emailMessage = user.local.username.toUpperCase() +
       '! \n Your item has been stolen by ' + req.user.local.username;
-      email.sendTo(user.local.email, 'ITEM' + item.itemNumber + ' STOLEN!', emailMessage);
-      console.log(user.local.email, 'ITEM' + item.itemNumber + ' STOLEN!', emailMessage);
+      email.sendTo(user.local.email, 'ITEM ' + item.itemNumber + ' STOLEN!', emailMessage);
     });
   }
 
