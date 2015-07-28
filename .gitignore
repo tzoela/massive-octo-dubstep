@@ -27,3 +27,5 @@ build/Release
 node_modules
 .module-cache
 config/database.js
+ignore.json
+ignoreme.json

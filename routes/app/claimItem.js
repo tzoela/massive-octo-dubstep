@@ -1,10 +1,18 @@
 var isLoggedIn = require('../../lib/isLoggedIn');
+var User = require('../../app/models/user');
 var listItem = require('../../app/models/listItem');
 var handleErrors = require('../../lib/auth/authError');
+var email = require('../../lib/email');
 
 function doSteal(req, res, item) {
-  if (item.claimed) {
-    console.log('stolen, send email!', item.itemNumber, item.whoClaimed, 'by', req.user.local.username);
+  if (item.claimed && item.whoClaimed) {
+    User.findOne({'local.username': item.whoClaimed})
+    .then(function(user) {
+      var emailMessage = user.local.username.toUpperCase() +
+      '! \n Your item has been stolen by ' + req.user.local.username;
+      email.sendTo(user.local.email, 'ITEM' + item.itemNumber + ' STOLEN!', emailMessage);
+      console.log(user.local.email, 'ITEM' + item.itemNumber + ' STOLEN!', emailMessage);
+    });
   }
 
   return item;

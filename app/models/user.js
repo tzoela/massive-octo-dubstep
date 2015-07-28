@@ -10,6 +10,7 @@ var userSchema = mongoose.Schema({
     site: String,
     siteIcon: String,
     quote: String,
+    email: String,
     notifications: [String]
   }
 
