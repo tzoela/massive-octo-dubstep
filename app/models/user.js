@@ -11,6 +11,7 @@ var userSchema = mongoose.Schema({
     siteIcon: String,
     quote: String,
     email: String,
+    isHelper: Boolean,
     notifications: [String]
   }
 
