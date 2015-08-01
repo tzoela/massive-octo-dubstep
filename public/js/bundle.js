@@ -918,7 +918,7 @@ var Submissions = React.createClass({displayName: "Submissions",
                     "This page will contain all of our submissions from ", this.props.title
                 ), 
                 React.createElement("div", {className: "row"}, 
-                    "It doesn't look like we have any yet (Because it hasn't started yet :P)"
+                    "The Hunt is currently underway. Check back once it has finished!"
                 )
 
             )
