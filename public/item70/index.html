@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Learn me a good PA Dutch</title>
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/docs.min.css" rel="stylesheet">
+  <link href="../dist/css/flat-ui.css" rel="stylesheet">
+  <script src="../js/jquery.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      text-align:  center;
+
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    .wrapper {
+      min-height: 100%;
+      height: auto !important;
+      height: 100%;
+      margin: 0 auto -60px;
+    }
+
+    .footer,
+    .push {
+      height: 40px;
+    }
+
+    .intro {
+        margin-top: 20px;
+        width: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .intro span {
+        display: block;
+    }
+
+    .starter-template {
+      padding: 40px 15px;
+      text-align: center;
+    }
+
+    .carbonad,
+    #content > #right > .dose > .dosesingle,
+    #content > #center > .dose > .dosesingle,
+    #carbonads-container {
+      display: none !important;
+    }
+
+    #learnme {
+      width: 50%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+  <script type="text/javascript">
+    var englishDiv, padutchDiv, translationData
+
+    function loadDictionary() {
+      $.ajax('dictionary.json')
+        .done(function(data) {
+          translationData = data
+          learnMeOne(translationData)
+        }.bind(this))
+    }
+
+    function randomSelection(list) {
+      return list[Math.floor(Math.random() * list.length)]
+    }
+
+    function learnMeOne(data) {
+      var trans = randomSelection(data)
+      padutchSpan.text(trans.padutch)
+      englishSpan.text(trans.english)
+    }
+
+    function learnMeAnother() {
+      if (translationData) {
+        learnMeOne(translationData)
+      } else {
+        loadDictionary()
+      }
+    }
+
+
+    $(function() {
+      englishSpan = $('#english')
+      padutchSpan = $('#padutch')
+
+      loadDictionary()
+
+    })
+  </script>
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <div class= "intro">
+      <h4>Want to be Amish, but don't know any PA Dutch?</h4>
+      <h5>GOOD NEWS!</h5>
+      <span>Team Oxfords not brogues are gunna learn you a good PA dutch,</span>
+      <span>one word/phrase at a time!<span>
+    </div>
+
+
+    <div class="jumbotron">
+      <div id="learnme">
+        <h3>Learn this one:</h2>
+          <div>
+            English:
+            <span id="english"> </span>
+            <br> PA Dutch:
+            <span id="padutch"></span>
+          </div>
+          <br>
+          <button class="btn btn-primary btn-lg" onclick="learnMeAnother()"> Learn Me Another</button>
+      </div>
+    </div>
+    <div class="push"></div>
+  </div>
+
+
+  <footer class="footer">
+    <small>Team Oxfords not brogues <a href= "https://www.teamoxfordsnotbrogues.com">Website Home</a></small>
+    |
+    <small>Translations from: <a href="http://bradhumblesamishcountry.yolasite.com/pennsylvania-dutch-dictionary.php">Brad Humble's Amish Country</a> </small>
+  </footer>
+
+</body>
+
+</html>
