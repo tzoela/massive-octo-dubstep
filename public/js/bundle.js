@@ -156,7 +156,6 @@ var Gishwhes = React.createClass({displayName: "Gishwhes",
   listItemsView: function() {
     return this.state.list.map(function(item, i) {
       var title = 'Item #' + item.itemNumber;
-
       var link = item.link;
       var isYoutube = this.linkIsYoutube(link);
       var itemDisplay = isYoutube
@@ -171,8 +170,8 @@ var Gishwhes = React.createClass({displayName: "Gishwhes",
       );
 
       return (
-        React.createElement(Col, {key: i + link, lg: 5, md: 4, xs: 6}, 
-          React.createElement(Thumbnail, {src: this.props.imgUrl}, 
+        React.createElement(Col, {key: i + link, lg: 6, md: 6, xs: 6}, 
+          React.createElement(Thumbnail, {bsSize: "medium", src: this.props.imgUrl}, 
             React.createElement(ThumbWithModel, {thumbtext: thumbtext, titleText: title}, 
               itemDisplay, 
               item.description
