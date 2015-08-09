@@ -40,6 +40,7 @@ var Submissions = React.createClass({
             <div>
                 <h1>{this.props.title}</h1>
                 <h4>{this.props.subtitle}</h4>
+                <p>{this.props.bodyText}</p>
             </div>
         );
 

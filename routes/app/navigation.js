@@ -2,7 +2,7 @@ var defaultMenu = {
     menuItems: [
     {uid: 'home', label: 'Home'},
     {uid: 'gifwhes', label: 'GifWhes'},
-    {uid: 'gishwhes', label: 'GISHWHES'},
+    {uid: 'gishwhes', label: 'GIsHWheS'},
     {uid: 'showcase', label: 'Tumblr Showcase'},
     {uid: 'about', label: 'About'},
     ]

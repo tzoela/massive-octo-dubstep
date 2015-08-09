@@ -31,7 +31,7 @@ var About = React.createClass({displayName: "About",
       var nameWithQuote = person.name + quote;
 
       return (
-        React.createElement("div", {key: person.name, className: "list-group-item", title: title}, 
+        React.createElement("div", {className: "list-group-item", key: person.name, title: title}, 
           React.createElement("a", {className: className, href: person.site}, 
             React.createElement("img", {alt: person.name + '_image', className: "bio-pic", height: "32", src: person.picture, width: "32"}), 
             React.createElement("div", {className: "name-quote"}, nameWithQuote)
@@ -48,11 +48,16 @@ var About = React.createClass({displayName: "About",
 
             React.createElement("div", {className: "lead"}, "Some stuff about the team"), 
             React.createElement("div", {className: "placeholder-from-jenjen"}, 
-              "like established this year, made up of experienced members from teams that previously didn't work out, goals for this year, etc", React.createElement("br", null), 
-              "named because kingsman is fuckin awesome", React.createElement("br", null), 
-              "idk shit like that -JenJen"
+              "Our team was assembled from experienced members from teams that previously didn't work out.", React.createElement("br", null), 
+              "The team is names is due to *cough* certain members of the team and their", 
+              React.createElement("i", null, " slight "), 
+              "love for the film Kingsmen.", React.createElement("br", null), 
+              React.createElement("a", {href: "https://www.gishwhes.com/g_blog/what-is-gishwhes/"}, " What is GIsHWheS? "), 
+              "and what's with the", 
+              React.createElement("a", {href: "https://www.gishwhes.com/g_blog/commandments/"}, " inconsistent capitalization? "), 
+              "(see commandment 3b)"
             ), 
-            React.createElement("p", null, "This link:", 
+            React.createElement("p", null, 
               React.createElement("a", {href: "http://teamoxfordsnotbrogues.tumblr.com/"}, "Team tumblr")
             ), 
 
@@ -84,14 +89,21 @@ module.exports = new Dispatcher();
 var React = require('react');
 
 var Submissions = require('./Submissions.jsx');
+var whatIsgifWhes = (
+  React.createElement("span", null, 
+    "GifWhes is a pre-GiShWheS mini-hunt held on Tumblr. See the", 
+    React.createElement("a", {href: "http://officialgishwhes.tumblr.com/gifwhes"}, " official Gishwhes tumblr page "), 
+    "for more information."
+  )
+);
 var GifWhes = React.createClass({displayName: "GifWhes",
-    render: function () {
-        return (
-            React.createElement("div", null, 
-                React.createElement(Submissions, {title: "GifWhes", subtitle: "Just a few of our favourite submissions", source: "/api/gifwhes"})
-            )
-        );
-    }
+  render: function() {
+    return (
+      React.createElement("div", null, 
+        React.createElement(Submissions, {source: "/api/gifwhes", bodyText: whatIsgifWhes, subtitle: "Just a few of our favourite submissions", title: "GifWhes"})
+      )
+    );
+  }
 });
 module.exports = GifWhes;
 
@@ -957,7 +969,8 @@ var Submissions = React.createClass({displayName: "Submissions",
         var header = (
             React.createElement("div", null, 
                 React.createElement("h1", null, this.props.title), 
-                React.createElement("h4", null, this.props.subtitle)
+                React.createElement("h4", null, this.props.subtitle), 
+                React.createElement("p", null, this.props.bodyText)
             )
         );
 

@@ -30,9 +30,9 @@ var About = React.createClass({
       var nameWithQuote = person.name + quote;
 
       return (
-        <div key={person.name} className="list-group-item" title={title}>
+        <div className="list-group-item" key={person.name} title={title}>
           <a className={className} href={person.site}>
-            <img alt={person.name + '_image'} className="bio-pic" height="32" src={person.picture} width="32"/>
+            <img  alt={person.name + '_image'} className="bio-pic" height="32" src={person.picture} width="32"/>
             <div className="name-quote">{nameWithQuote}</div>
           </a>
         </div>
@@ -47,11 +47,16 @@ var About = React.createClass({
 
             <div className="lead">Some stuff about the team</div>
             <div className="placeholder-from-jenjen">
-              like established this year, made up of experienced members from teams that previously didn't work out, goals for this year, etc<br/>
-              named because kingsman is fuckin awesome<br/>
-              idk shit like that -JenJen
+              Our team was assembled from experienced members from teams that previously didn't work out.<br/>
+              The team is names is due to *cough* certain members of the team and their
+              <i> slight </i>
+              love for the film Kingsmen.<br/>
+              <a href='https://www.gishwhes.com/g_blog/what-is-gishwhes/'> What is GIsHWheS? </a>
+              and what's with the
+              <a href='https://www.gishwhes.com/g_blog/commandments/'> inconsistent capitalization? </a>
+              (see commandment 3b)
             </div>
-            <p>This link:
+            <p>
               <a href="http://teamoxfordsnotbrogues.tumblr.com/">Team tumblr</a>
             </p>
 
