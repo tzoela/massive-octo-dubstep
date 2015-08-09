@@ -3,7 +3,7 @@ var defaultMenu = {
     {uid: 'home', label: 'Home'},
     {uid: 'gifwhes', label: 'GifWhes'},
     {uid: 'gishwhes', label: 'GISHWHES'},
-    {uid: 'showcase', label: 'Showcase'},
+    {uid: 'showcase', label: 'Tumblr Showcase'},
     {uid: 'about', label: 'About'},
     ]
 };

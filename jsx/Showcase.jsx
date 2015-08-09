@@ -9,7 +9,7 @@ var Showcase = React.createClass({
                 <div >
                     <div className="container">
                         <div>
-                            <h1>Showcase</h1>
+                            <h1>Team Tumblr Showcase</h1>
                         </div>
                     </div>
 

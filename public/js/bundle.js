@@ -789,7 +789,7 @@ var Showcase = React.createClass({displayName: "Showcase",
                 React.createElement("div", null, 
                     React.createElement("div", {className: "container"}, 
                         React.createElement("div", null, 
-                            React.createElement("h1", null, "Showcase")
+                            React.createElement("h1", null, "Team Tumblr Showcase")
                         )
                     ), 
 
