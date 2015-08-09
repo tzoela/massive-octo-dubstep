@@ -97,20 +97,139 @@ module.exports = GifWhes;
 
 },{"./Submissions.jsx":13,"react":269}],4:[function(require,module,exports){
 var React = require('react');
+var ListItemStore = require('./stores/ListItemStore');
+var BootStrap = require('react-bootstrap');
+var Thumbnail = BootStrap.Thumbnail;
+var Col = BootStrap.Col;
+var Row = BootStrap.Row;
+var Button = BootStrap.Button;
+var Modal = BootStrap.Modal;
 
-var Submissions = require('./Submissions.jsx');
-var Gishwhes = React.createClass({displayName: "Gishwhes",
-    render: function () {
-        return (
-            React.createElement(Submissions, {title: "GISHWHES", source: "/api/gishwhes"})
-        );
-    }
+var EnbigenedImageModel = React.createClass({displayName: "EnbigenedImageModel",
+
+  getInitialState: function() {
+    return {
+      showModal: false
+    };
+  },
+
+  close: function() {
+    this.setState({
+      showModal: false
+    });
+  },
+
+  open: function() {
+    this.setState({
+      showModal: true
+    });
+  },
+
+  render: function() {
+
+    return (
+      React.createElement("div", null, 
+        React.createElement("h4", null, "Item #", this.props.itemNumber), 
+        React.createElement("p", null, this.props.description), 
+        React.createElement(Button, {bsSize: "medium", bsStyle: "primary", onClick: this.open}, 
+          "View Submission"
+        ), 
+
+        React.createElement(Modal, {"aria-labelledby": "contained-modal-title-lg", bsSize: "large", onHide: this.close, show: this.state.showModal}, 
+          React.createElement(Modal.Header, {closeButton: true}, 
+            React.createElement(Modal.Title, null, "Item #", this.props.itemNumber)
+          ), 
+          React.createElement(Modal.Body, null, 
+            this.props.itemDisplay, 
+            this.props.description
+          ), 
+          React.createElement(Modal.Footer, null, 
+            React.createElement(Button, {onClick: this.close}, "Close")
+          )
+        )
+      )
+    );
+  }
 });
 
+var Gishwhes = React.createClass({displayName: "Gishwhes",
+
+  getInitialState: function() {
+    return {
+      list: ListItemStore.getMemberList()
+    };
+  },
+
+  componentDidMount: function() {
+    ListItemStore.addUpdateListener(this._onChange);
+  },
+
+  _onChange: function() {
+    this.setState({
+      list: ListItemStore.getMemberList()
+    });
+  },
+  generateYoutubeEmbeded: function(shortYTLink) {
+    var embededTemplate = 'https://www.youtube.com/embed/{id}';
+    var idStart = shortYTLink.lastIndexOf('/');
+    var id = shortYTLink.substring(idStart);
+
+    return embededTemplate.replace('{id}', id);
+  },
+
+  linkIsYoutube: function(link) {
+    return (link.indexOf('youtu.be') !== -1);
+  },
+
+  listItemsView: function() {
+    return this.state.list.map(function(item, i) {
+      var link = item.link;
+      var isYoutube = this.linkIsYoutube(link);
+      var itemDisplay;
+
+      if (isYoutube) {
+        link = this.generateYoutubeEmbeded(link);
+        itemDisplay = (
+            React.createElement("iframe", {allowFullScreen: true, className: "col-centered", height: 315, key: i, src: link, width: 560})
+        );
+       } else {
+         itemDisplay = (
+           React.createElement("img", {className: "img-rounded  submission-item col-centered", 
+             src: link, alt: 'item submission for item ' + item.itemNumber}, " ")
+         );
+       }
+
+
+      return (
+        React.createElement(Col, {lg: 5, md: 4, xs: 6}, 
+          React.createElement(Thumbnail, {src: this.props.imgUrl}, 
+            React.createElement(EnbigenedImageModel, {description: item.description, itemDisplay: itemDisplay, itemNumber: item.itemNumber})
+          )
+        )
+
+      );
+
+    }.bind(this));
+  },
+
+  render: function() {
+    var listItems = this.listItemsView();
+    return (
+        React.createElement("div", null, 
+          React.createElement(Row, null, 
+            React.createElement(Col, {lg: 5, md: 4, xs: 6}, 
+              React.createElement("h4", {style: {marginLeft: 20}}, "Here are the items that we completed in this year's hunt")
+            )
+          ), 
+          React.createElement("div", null, listItems)
+        )
+    );
+  }
+});
 
 module.exports = Gishwhes;
 
-},{"./Submissions.jsx":13,"react":269}],5:[function(require,module,exports){
+},{"./stores/ListItemStore":18,"react":269,"react-bootstrap":91}],5:[function(require,module,exports){
 var React = require('react');
 var Style = require('react-style');
 var ListItemStore = require('./stores/ListItemStore');

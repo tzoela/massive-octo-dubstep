@@ -63,7 +63,7 @@ module.exports = function(passport) {
         if (err)
           return done(err);
 
-        if (user || user.validPassword(password)) {
+        if (user && user.validPassword(password)) {
           return done(null, user);
         } else {
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong.'));

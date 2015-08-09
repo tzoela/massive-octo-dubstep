@@ -13,7 +13,10 @@
     * {
       margin: 0;
       text-align:  center;
+    }
 
+    html {
+      overflow-y: scroll;
     }
 
     html,
@@ -25,16 +28,17 @@
       min-height: 100%;
       height: auto !important;
       height: 100%;
-      margin: 0 auto -60px;
+      margin: 0 auto -10%;
     }
 
     .footer,
     .push {
-      height: 40px;
+      height: 10%;
+      width: 100%;
     }
 
     .intro {
-        margin-top: 20px;
+        margin-top: 5%;
         width: 50%;
         display: block;
         margin-left: auto;
@@ -57,7 +61,6 @@
     }
 
     #learnme {
-      width: 50%;
       display: block;
       margin-left: auto;
       margin-right: auto;
@@ -106,7 +109,7 @@
 <body>
   <div class="wrapper">
 
-    <div class= "intro">
+    <div class= "intro row">
       <h4>Want to be Amish, but don't know any PA Dutch?</h4>
       <h5>GOOD NEWS!</h5>
       <span>Team Oxfords not brogues are gunna learn you a good PA dutch,</span>
@@ -114,8 +117,9 @@
     </div>
 
 
-    <div class="jumbotron">
+    <div class="jumbotron row">
       <div id="learnme">
+          <div class="col-xs-12 col-sm-12 col-md-12">
         <h3>Learn this one:</h2>
           <div>
             English:
@@ -125,6 +129,7 @@
           </div>
           <br>
           <button class="btn btn-primary btn-lg" onclick="learnMeAnother()"> Learn Me Another</button>
+      </div>
       </div>
     </div>
     <div class="push"></div>
@@ -136,7 +141,6 @@
     |
     <small>Translations from: <a href="http://bradhumblesamishcountry.yolasite.com/pennsylvania-dutch-dictionary.php">Brad Humble's Amish Country</a> </small>
   </footer>
-  <script src="../js/bootstrap.min.js"></script>
 
 </body>
 
