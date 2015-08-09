@@ -58,8 +58,15 @@ var Gishwhes = React.createClass({
 
   getInitialState: function() {
     return {
-      list: ListItemStore.getMemberList()
+      list: this.getCompleteItemsFromStore()
     };
+  },
+
+  getCompleteItemsFromStore: function(list) {
+      var list  = ListItemStore.getMemberList().filter(function(item) {
+          return item.completed;
+      });
+      return list;
   },
 
   componentDidMount: function() {
@@ -68,7 +75,7 @@ var Gishwhes = React.createClass({
 
   _onChange: function() {
     this.setState({
-      list: ListItemStore.getMemberList()
+      list: this.getCompleteItemsFromStore()
     });
   },
   generateYoutubeEmbeded: function(shortYTLink) {
