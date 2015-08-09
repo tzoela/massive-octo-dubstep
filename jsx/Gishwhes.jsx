@@ -72,7 +72,7 @@ var Gishwhes = React.createClass({
       );
 
       return (
-        <Col key={i + link} lg={6} md={6} xs={6}>
+        <Col key={i + link} lg={6} md={9} sm={10} xs={10}>
           <Thumbnail bsSize='medium' src={this.props.imgUrl}>
             <ThumbWithModel thumbtext={thumbtext} titleText={title}>
               {itemDisplay}

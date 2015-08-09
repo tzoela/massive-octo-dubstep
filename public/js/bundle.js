@@ -170,7 +170,7 @@ var Gishwhes = React.createClass({displayName: "Gishwhes",
       );
 
       return (
-        React.createElement(Col, {key: i + link, lg: 6, md: 6, xs: 6}, 
+        React.createElement(Col, {key: i + link, lg: 6, md: 9, sm: 10, xs: 10}, 
           React.createElement(Thumbnail, {bsSize: "medium", src: this.props.imgUrl}, 
             React.createElement(ThumbWithModel, {thumbtext: thumbtext, titleText: title}, 
               itemDisplay, 
@@ -213,11 +213,13 @@ var React = require('react');
 
 var ImageItem = React.createClass({displayName: "ImageItem",
 
-    render: function() {
-        return (
-            React.createElement("img", {alt: this.props.altText, className: "img-rounded col-centered submission-item", src: this.props.imgUrl})
-        );
-    }
+  render: function() {
+    return (
+      React.createElement("a", {href: this.props.imgUrl, title: "Click to Open"}, 
+        React.createElement("img", {alt: this.props.altText, className: "img-rounded col-centered submission-item", src: this.props.imgUrl})
+      )
+    );
+  }
 
 });
 
