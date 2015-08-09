@@ -75,7 +75,7 @@ var Submissions = React.createClass({
                     This page will contain all of our submissions from {this.props.title}
                 </div>
                 <div className="row">
-                    The Hunt is currently underway. Check back once it has finished!
+                    Hold on while we load them for you...
                 </div>
 
             </div>

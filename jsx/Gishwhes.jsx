@@ -4,55 +4,8 @@ var BootStrap = require('react-bootstrap');
 var Thumbnail = BootStrap.Thumbnail;
 var Col = BootStrap.Col;
 var Row = BootStrap.Row;
-var Button = BootStrap.Button;
-var Modal = BootStrap.Modal;
-
-var EnbigenedImageModel = React.createClass({
-
-  getInitialState: function() {
-    return {
-      showModal: false
-    };
-  },
-
-  close: function() {
-    this.setState({
-      showModal: false
-    });
-  },
-
-  open: function() {
-    this.setState({
-      showModal: true
-    });
-  },
-
-  render: function() {
-
-    return (
-      <div>
-        <h4>Item #{this.props.itemNumber}</h4>
-        <p>{this.props.description}</p>
-        <Button bsSize='medium' bsStyle='primary' onClick={this.open}>
-          View Submission
-        </Button>
-
-        <Modal aria-labelledby='contained-modal-title-lg' bsSize='large' onHide={this.close} show={this.state.showModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Item #{this.props.itemNumber}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {this.props.itemDisplay}
-            {this.props.description}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.close}>Close</Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
-    );
-  }
-});
+var ThumbWithModel = require('./ThumbWithModel.jsx');
+var ImageItem = require('./ImageItem.jsx');
 
 var Gishwhes = React.createClass({
 
@@ -63,10 +16,10 @@ var Gishwhes = React.createClass({
   },
 
   getCompleteItemsFromStore: function(list) {
-      var list  = ListItemStore.getMemberList().filter(function(item) {
-          return item.completed;
-      });
-      return list;
+    var list = ListItemStore.getMemberList().filter(function(item) {
+      return item.completed;
+    });
+    return list;
   },
 
   componentDidMount: function() {
@@ -90,32 +43,43 @@ var Gishwhes = React.createClass({
     return (link.indexOf('youtu.be') !== -1);
   },
 
+  generateVideoView: function(link) {
+    link = this.generateYoutubeEmbeded(link);
+    return (
+      <iframe allowFullScreen className='col-centered' height={315} src={link} width={560}></iframe>
+    );
+  },
+  generateImageView: function(link, altText) {
+    return (
+      <ImageItem altText={altText} imgUrl={link}></ImageItem>
+    );
+  },
+
   listItemsView: function() {
     return this.state.list.map(function(item, i) {
+      var title = 'Item #' + item.itemNumber;
       var link = item.link;
       var isYoutube = this.linkIsYoutube(link);
-      var itemDisplay;
+      var itemDisplay = isYoutube
+        ? this.generateVideoView(link)
+        : this.generateImageView(link, 'item submission for item ' + item.itemNumber);
 
-      if (isYoutube) {
-        link = this.generateYoutubeEmbeded(link);
-        itemDisplay = (
-            <iframe allowFullScreen className='col-centered' height={315} key={i} src={link} width={560}></iframe>
-        );
-       } else {
-         itemDisplay = (
-           <img className='img-rounded  submission-item col-centered'
-             src={link} alt={'item submission for item ' + item.itemNumber}> </img>
-         );
-       }
-
+      var thumbtext = (
+        <div>
+          <h4>{title}</h4>
+          <p>{item.description}</p>
+        </div>
+      );
 
       return (
-        <Col lg={5} md={4} xs={6}>
+        <Col key={i + link} lg={5} md={4} xs={6}>
           <Thumbnail src={this.props.imgUrl}>
-            <EnbigenedImageModel description={item.description} itemDisplay={itemDisplay} itemNumber={item.itemNumber}/>
+            <ThumbWithModel thumbtext={thumbtext} titleText={title}>
+              {itemDisplay}
+              {item.description}
+            </ThumbWithModel>
           </Thumbnail>
         </Col>
-
       );
 
     }.bind(this));
@@ -123,15 +87,23 @@ var Gishwhes = React.createClass({
 
   render: function() {
     var listItems = this.listItemsView();
+    var Style = {
+      container: {
+        width: '70%'
+      },
+      title: {
+        marginLeft: 20
+      }
+    }
     return (
-        <div>
-          <Row>
-            <Col lg={5} md={4} xs={6}>
-              <h4 style={{marginLeft: 20}}>Here are the items that we completed in this year's hunt</h4>
-            </Col>
-          </Row>
-          <div>{listItems}</div>
-        </div>
+      <div className='col-centered' style={Style.container}>
+        <Row>
+          <Col lg={10} md={10} xs={10}>
+            <h4 style={Style.title}>Here are the items that we completed in this year's hunt</h4>
+          </Col>
+        </Row>
+        <div>{listItems}</div>
+      </div>
     );
   }
 });
