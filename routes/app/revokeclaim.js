@@ -3,7 +3,6 @@ var listItem = require('../../app/models/listItem');
 var handleErrors = require('../../lib/auth/authError');
 
 function doRevoke(req, res, item) {
-
   item.claimed = false;
   item.whoClaimed = '';
   item.save(function(err, success) {
@@ -18,10 +17,11 @@ function doRevoke(req, res, item) {
 module.exports = function(app, passport) {
 
   app.put('/revokeclaim', isLoggedIn, function(req, res) {
-    var itemNumber = req.body.itemNumber;
-    listItem.findOne({itemNumber: itemNumber})
-      .then(function(item) {
-        doRevoke(req, res, item);
-      }).then(null, handleErrors(req, res));
+      res.status(200).send('Pretend done');
+    // var itemNumber = req.body.itemNumber;
+    // listItem.findOne({itemNumber: itemNumber})
+    //   .then(function(item) {
+    //     doRevoke(req, res, item);
+    //   }).then(null, handleErrors(req, res));
   });
 }

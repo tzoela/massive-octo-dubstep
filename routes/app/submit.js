@@ -18,10 +18,12 @@ function doSubmit(req, res, item) {
 module.exports = function(app, passport) {
 
   app.put('/submit', isLoggedIn, function(req, res) {
-    var itemNumber = req.body.itemNumber;
-    listItem.findOne({itemNumber: itemNumber})
-      .then(function(item) {
-        doSubmit(req, res, item);
-      }).then(null, handleErrors(req, res));
+      res.status(200).send('Pretend done');
+
+    // var itemNumber = req.body.itemNumber;
+    // listItem.findOne({itemNumber: itemNumber})
+    //   .then(function(item) {
+    //     doSubmit(req, res, item);
+    //   }).then(null, handleErrors(req, res));
   });
 }

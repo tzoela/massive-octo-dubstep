@@ -24,13 +24,15 @@ function doUpdateInfo(req, res) {
 module.exports = function(app, passport) {
 
   app.put('/update', isLoggedIn, function(req, res) {
-    User.findOne({
-        'local.username': req.body.username
-      })
-      .then(checkUserPass(req, res))
-      .then(checkUserIsSelf(req, res))
-      .then(doUpdateInfo(req, res))
-      .then(null, handleErrors(req, res));
+      res.status(200).send('Pretend done');
+
+    // User.findOne({
+    //     'local.username': req.body.username
+    //   })
+    //   .then(checkUserPass(req, res))
+    //   .then(checkUserIsSelf(req, res))
+    //   .then(doUpdateInfo(req, res))
+    //   .then(null, handleErrors(req, res));
   });
 
 }

@@ -18,7 +18,6 @@ function doSteal(req, res, item) {
 }
 
 function doClaim(req, res, item) {
-
   item.claimed = true;
   item.whoClaimed = req.user.local.username;
   item.save(function(err, success) {
@@ -33,13 +32,15 @@ function doClaim(req, res, item) {
 module.exports = function(app, passport) {
 
   app.put('/claim', isLoggedIn, function(req, res) {
-    var itemNumber = req.body.itemNumber;
-    listItem.findOne({itemNumber: itemNumber})
-      .then(function(item) {
-        return doSteal(req, res, item);
-      })
-      .then(function(item) {
-        doClaim(req, res, item);
-      }).then(null, handleErrors(req, res));
+      res.status(200).send('Pretend done');
+
+    // var itemNumber = req.body.itemNumber;
+    // listItem.findOne({itemNumber: itemNumber})
+    //   .then(function(item) {
+    //     return doSteal(req, res, item);
+    //   })
+    //   .then(function(item) {
+    //     doClaim(req, res, item);
+    //   }).then(null, handleErrors(req, res));
   });
 }
